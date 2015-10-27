@@ -1,18 +1,4 @@
-// ==UserScript==
-// @name         studentportalen-extended
-// @namespace    http://ventureinto.space
-// @version      0.1
-// @description  Add missing functionality to studenportalen.liu.se
-// @author       Nils Eriksson niler851@student.liu.se
-// @match        https://www3.student.liu.se/portal/studieresultat/resultat?show_oavslut=oavslut&show_prov=prov&show_splitt=splitt&post_button_select_filter=Submit
-// @grant        none
-// @require      http://code.jquery.com/jquery-2.1.4.min.js
-// ==/UserScript==
-
-
-//// VIEW ////
-/*
-  Create area for grade info
+reate area for grade info
 */
 $("form").append("<div id='snitt' ><h1>Snitt</h1></div>");
 $("#snitt").append("<h3 style='margin:0;'>Viktat: <span id='weighted-average-grade'></span></h3>");
@@ -27,11 +13,21 @@ $("#snitt").append("<p><button id='calculate-btn' type='button'>Calculate</butto
 $("table.resultlist > tbody").attr('id','grade-table');
 
 
-// Add checkboxes and a new header to the table of grades.
+
+/**
+ MODIFY THE TABLE OF GRADES
+ -Add new header "Selected"
+ -Add checkbox for all courses
+ -Add plus minus sign next to grades to se the impact
+ of rasing them
+ **/
 (function expandTableOfGrades(){
     $("#grade-table").children().each(function(){
         if($(this).children().eq(0).text() !== "Kurskod" && $(this).children().size() >2 ){
            $(this).prepend("<td><input type='checkbox' class='course-checkbox'></td>");
+           $(this).children().eq(4).attr('nowrap','nowrap');
+           $(this).children().eq(4).wrapInner("<span class='grade'></span>");
+           $(this).children().eq(4).append(" <input type='button' value='+' class='plus'/><input type='button' value='-' class='minus' />");
         }
         if($(this).children().eq(0).text() == "Kurskod"){
         $(this).prepend("<th>Select</th>");
@@ -72,6 +68,8 @@ $("#calculate-btn").click(function(event){
 
 
 
+
+
 /// Controllers /////
 
 
@@ -98,8 +96,8 @@ function calculateAverages(){
             }
         });
   
-        var coursesWithRegularGrades = selectedRows.size() - gradesWithOnlyG;
-        var avrage = sumGrades/coursesWithRegularGrades;
+        var coursesWithRegularGrades = selectedRows.size() - gradesWithoutNumbers;
+        var avrage = sum/coursesWithRegularGrades;
         
         return avrage;
      })();
@@ -124,5 +122,40 @@ function calculateAverages(){
         average: avrage
     }
 }
+
+
+(function plusMinus(){
+    
+   $('.plus').click(function(e){
+        var gradeElement =$(this).prev(".grade");
+        var grade = Number(gradeElement.text());
+        // If is not undefined
+        if (!isNaN(grade)) {
+            // Increment
+          $(gradeElement).text(grade+1);
+        } else {
+            // Otherwise put a 0 there
+            $(gradeElement).text(0);
+        }
+    });
+    
+   $('.minus').click(function(e){
+        var gradeElement = $(this).prevAll(".grade");
+        var grade = Number(gradeElement.text());
+        // If is not undefined
+        if (!isNaN(grade)) {
+            // Increment
+          $(gradeElement).text(grade-1);
+        } else {
+            // Otherwise put a 0 there
+            $(gradeElement).text(0);
+        }
+    });
+
+})();
+
+
+
+
 
 
