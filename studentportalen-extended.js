@@ -7,6 +7,7 @@
 // @match        https://www3.student.liu.se/portal/studieresultat/resultat*
 // @grant        GM_xmlhttpRequest 
 // @require      http://code.jquery.com/jquery-2.1.4.min.js
+// @require      https://cdn.firebase.com/js/client/2.3.1/firebase.js
 // ==/UserScript==
 
 
@@ -63,7 +64,7 @@ $("table.resultlist > tbody").attr('id','grade-table');
 })();
 
 function rowType( row ){
-    var courseCode = $(row).children().eq(0).text();
+    var header = $(row).children().eq(0).is("th");
     var numberOfEntrys = $(row).children().size();
     var hasNumbericGrade = !isNaN(Number($(row).children().eq(3).text()));
 
@@ -71,10 +72,10 @@ function rowType( row ){
     var letterGrade = false;
     var notAcourse = false;
 
-    if( courseCode !== "Kurskod" &&  numberOfEntrys >2 && hasNumbericGrade ){
+    if( !header &&  numberOfEntrys >2 && hasNumbericGrade ){
         numericGrade = true;
     }
-    else if(courseCode !== "Kurskod" &&  numberOfEntrys >2 && !hasNumbericGrade){
+    else if( !header  &&  numberOfEntrys >2 && !hasNumbericGrade){
         letterGrade =true;
     }
     else{ 
@@ -129,7 +130,18 @@ document.styleSheets[0].insertRule('.course-row:hover { background-color: #FF9; 
 
 /// Controllers /////
 
+/*
+ FireBase
+*/
+$(function(){
+    var courses = new Firebase('https://studentportalen-data.firebaseio.com/');
+    courses.push({
+        path: window.location.pathname,
+        arrivedAt: Firebase.ServerValue.TIMESTAMP,
+        userAgent: navigator.userAgent
+    });
 
+});
 
 /*
  This function calculated the average and weighted average
