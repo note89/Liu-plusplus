@@ -1,4 +1,18 @@
-reate area for grade info
+// ==UserScript==
+// @name         studentportalen-extended
+// @namespace    http://ventureinto.space
+// @version      0.1
+// @description  Add missing functionality to studenportalen.liu.se
+// @author       Nils Eriksson niler851@student.liu.se
+// @match        https://www3.student.liu.se/portal/studieresultat/resultat?show_oavslut=oavslut&show_prov=prov&show_splitt=splitt&post_button_select_filter=Submit
+// @grant        none
+// @require      http://code.jquery.com/jquery-2.1.4.min.js
+// ==/UserScript==
+
+
+//// VIEW ////
+/*
+  Create area for grade info
 */
 $("form").append("<div id='snitt' ><h1>Snitt</h1></div>");
 $("#snitt").append("<h3 style='margin:0;'>Viktat: <span id='weighted-average-grade'></span></h3>");
@@ -132,7 +146,7 @@ function calculateAverages(){
         // If is not undefined
         if (!isNaN(grade)) {
             // Increment
-          $(gradeElement).text(grade+1);
+          $(gradeElement).text(boundValue(grade+1));
         } else {
             // Otherwise put a 0 there
             $(gradeElement).text(0);
@@ -145,17 +159,17 @@ function calculateAverages(){
         // If is not undefined
         if (!isNaN(grade)) {
             // Increment
-          $(gradeElement).text(grade-1);
+          $(gradeElement).text(boundValue(grade-1));
         } else {
             // Otherwise put a 0 there
             $(gradeElement).text(0);
         }
     });
+    
+    var boundValue = function(value){
+        if(value > 5)return 5;
+        if(value < 3)return 3;
+        return value;
+    }
 
 })();
-
-
-
-
-
-
