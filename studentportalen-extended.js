@@ -4,7 +4,7 @@
 // @version      0.1
 // @description  Add missing functionality to studenportalen.liu.se
 // @author       Nils Eriksson niler851@student.liu.se
-// @match        https://www3.student.liu.se/portal/studieresultat/resultat?show_oavslut=oavslut&show_prov=prov&show_splitt=splitt&post_button_select_filter=Submit
+// @match        https://www3.student.liu.se/portal/studieresultat/resultat*
 // @grant        none
 // @require      http://code.jquery.com/jquery-2.1.4.min.js
 // ==/UserScript==
@@ -173,3 +173,8 @@ function calculateAverages(){
     }
 
 })();
+
+
+
+
+
