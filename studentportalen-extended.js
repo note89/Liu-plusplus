@@ -28,6 +28,7 @@ $("table.resultlist > tbody").attr('id','grade-table');
 
 
 
+
 /**
  MODIFY THE TABLE OF GRADES
  -Add new header "Selected"
@@ -38,13 +39,15 @@ $("table.resultlist > tbody").attr('id','grade-table');
 (function expandTableOfGrades(){
     $("#grade-table").children().each(function(){
         if($(this).children().eq(0).text() !== "Kurskod" && $(this).children().size() >2 ){
-           $(this).prepend("<td><input type='checkbox' class='course-checkbox'></td>");
-           $(this).children().eq(4).attr('nowrap','nowrap');
-           $(this).children().eq(4).wrapInner("<span class='grade'></span>");
-           $(this).children().eq(4).append(" <input type='button' value='+' class='plus'/><input type='button' value='-' class='minus' />");
+            $(this).prepend("<td><input type='checkbox' class='course-checkbox'></td>");
+            $(this).children().eq(4).attr('nowrap','nowrap');
+            $(this).children().eq(4).wrapInner("<span class='grade' style='padding-right: 6px;'></span>");
+            $(this).children().eq(4).append(" <input type='button' value='+' class='plus'/><input type='button' value='-' class='minus' />");
+            $(this).addClass('course-row');
         }
         if($(this).children().eq(0).text() == "Kurskod"){
-        $(this).prepend("<th>Select</th>");
+            $(this).prepend("<th>Select</th>");
+            $(this).children().eq(3).attr('style','padding-right:23px');
         }
     });
 })();
@@ -56,12 +59,12 @@ $("table.resultlist > tbody").attr('id','grade-table');
 $("#select-all").click(function(event){
     if(this.checked){
         $('.course-checkbox').each(function(){
-          this.checked = true;
+            this.checked = true;
         });
     }
     else{
         $('.course-checkbox').each(function(){
-          this.checked = false;
+            this.checked = false;
         });
     }
 
@@ -74,11 +77,15 @@ $("#select-all").click(function(event){
  then put the numbers in the view for the user to se
 **/
 $("#calculate-btn").click(function(event){
-  var grades = calculateAverages();
-  $('#average-grade').text(grades.average.toFixed(2));
-  $('#weighted-average-grade').text(grades.WeightedAverage.toFixed(2));
+    var grades = calculateAverages();
+    $('#average-grade').text(grades.average.toFixed(2));
+    $('#weighted-average-grade').text(grades.WeightedAverage.toFixed(2));
 });
 
+/*
+ Add hover highlighting for course-rows
+*/
+document.styleSheets[0].insertRule('.course-row:hover { background-color: #FF9; outline: thin solid black;}', 0);
 
 
 
@@ -94,42 +101,42 @@ $("#calculate-btn").click(function(event){
 */
 
 function calculateAverages(){
-    
+
     var selectedRows = $(".course-checkbox:checked").parent().parent();
-    
-    
+
+
     var avrage = (function(){
         var gradesWithoutNumbers = 0;
         var sum = 0;
         selectedRows.each(function(){
             var grade = Number($(this).children().eq(4).text());
             if( !isNaN(grade)){
-                    sum += grade;
+                sum += grade;
             }else{
-            gradesWithoutNumbers++;
+                gradesWithoutNumbers++;
             }
         });
-  
+
         var coursesWithRegularGrades = selectedRows.size() - gradesWithoutNumbers;
         var avrage = sum/coursesWithRegularGrades;
-        
+
         return avrage;
-     })();
+    })();
 
     var WeightedAverage = (function(){
-                var pointsSum = 0;
-                var pointsTimesGradeSum =0;
+        var pointsSum = 0;
+        var pointsTimesGradeSum =0;
         selectedRows.each(function(){
             var grade = Number($(this).children().eq(4).text());
             var points = Number($(this).children().eq(3).text());
             if( !isNaN(grade)){
-                    pointsSum += points;
-                    pointsTimesGradeSum += points*grade;
+                pointsSum += points;
+                pointsTimesGradeSum += points*grade;
             }
         });
         return pointsTimesGradeSum/pointsSum;
     })();
-    
+
 
     return {
         WeightedAverage: WeightedAverage,
@@ -139,41 +146,40 @@ function calculateAverages(){
 
 
 (function plusMinus(){
-    
-   $('.plus').click(function(e){
+
+    $('.plus').click(function(e){
         var gradeElement =$(this).prev(".grade");
         var grade = Number(gradeElement.text());
         // If is not undefined
         if (!isNaN(grade)) {
             // Increment
-          $(gradeElement).text(boundValue(grade+1));
+            $(gradeElement).text(boundValue(grade+1));
         } else {
             // Otherwise put a 0 there
             $(gradeElement).text(0);
         }
     });
-    
-   $('.minus').click(function(e){
+
+    $('.minus').click(function(e){
         var gradeElement = $(this).prevAll(".grade");
         var grade = Number(gradeElement.text());
         // If is not undefined
         if (!isNaN(grade)) {
             // Increment
-          $(gradeElement).text(boundValue(grade-1));
+            $(gradeElement).text(boundValue(grade-1));
         } else {
             // Otherwise put a 0 there
             $(gradeElement).text(0);
         }
     });
-    
+
     var boundValue = function(value){
         if(value > 5)return 5;
         if(value < 3)return 3;
         return value;
     }
 
-})();
-
+    })();
 
 
 
