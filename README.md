@@ -14,7 +14,7 @@ studentportalen to add extra functionally.
 * Show the Advancement level (G1, G2, A)
 * Show what faculty the course belongs to
 * Show what area the course belongs to
-* Support for filfakgrades (G,VG)
+* Support for filfak grades (G,VG)
 
 ## How to use studentportalen-extended
 
