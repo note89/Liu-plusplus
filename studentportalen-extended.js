@@ -94,18 +94,37 @@ function rowType( row ){
  all checkboxes shoul be selected.
 */
 $("#select-all").click(function(event){
+    event.stopPropagation();
     if(this.checked){
         $('.course-checkbox').each(function(){
             this.checked = true;
+            $(this).closest("tr").addClass('selected');
         });
     }
     else{
         $('.course-checkbox').each(function(){
             this.checked = false;
+            $(this).closest("tr").removeClass('selected');
         });
     }
 
 });
+
+/*
+ pression a row should make it checked and highlighted
+ */
+
+
+$( '#grade-table' ).delegate( 'tr', 'click', function ( e ) {
+    if ( $( e.target ).is( 'input:checkbox' ) ) { 
+        this.checked = !this.checked;
+        $(this).toggleClass('selected');
+    } else {
+        $(this).find("input[type='checkbox']").click();
+        
+    }        
+});
+
 
 
 /**
@@ -121,8 +140,10 @@ $("#calculate-btn").click(function(event){
 
 /*
  Add hover highlighting for course-rows
+ 
 */
 document.styleSheets[0].insertRule('.course-row:hover { background-color: #FF9; outline: thin solid black;}', 0);
+document.styleSheets[0].insertRule('.selected { background-color: #FFC; outline: thin solid black;}', 0);
 
 
 
@@ -196,6 +217,7 @@ function calculateAverages(){
 (function plusMinus(){
 
     $('.plus').click(function(e){
+        e.stopPropagation();
         var gradeElement =$(this).prev(".grade");
         var grade = Number(gradeElement.text());
         // If is not undefined
@@ -209,6 +231,7 @@ function calculateAverages(){
     });
 
     $('.minus').click(function(e){
+                e.stopPropagation();
         var gradeElement = $(this).prevAll(".grade");
         var grade = Number(gradeElement.text());
         // If is not undefined
