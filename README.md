@@ -28,8 +28,8 @@ studentportalen to add extra functionally.
 3. Enjoy
 
 #### Internet Explorer
-1.Uninstall Internet Explorer
-2.Install Chrome or Firefox
+1. Uninstall Internet Explorer
+2. Install Chrome or Firefox
 
 #### Suggestions and feedback
 You can start a issue if you have an idea for some useful functionality,
