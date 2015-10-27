@@ -5,9 +5,12 @@
 // @description  Add missing functionality to studenportalen.liu.se
 // @author       Nils Eriksson niler851@student.liu.se
 // @match        https://www3.student.liu.se/portal/studieresultat/resultat*
-// @grant        none
+// @grant        GM_xmlhttpRequest 
 // @require      http://code.jquery.com/jquery-2.1.4.min.js
 // ==/UserScript==
+
+
+
 
 
 //// VIEW ////
@@ -38,11 +41,18 @@ $("table.resultlist > tbody").attr('id','grade-table');
  **/
 (function expandTableOfGrades(){
     $("#grade-table").children().each(function(){
-        if($(this).children().eq(0).text() !== "Kurskod" && $(this).children().size() >2 ){
-            $(this).prepend("<td><input type='checkbox' class='course-checkbox'></td>");
-            $(this).children().eq(4).attr('nowrap','nowrap');
-            $(this).children().eq(4).wrapInner("<span class='grade' style='padding-right: 6px;'></span>");
-            $(this).children().eq(4).append(" <input type='button' value='+' class='plus'/><input type='button' value='-' class='minus' />");
+
+        var row = rowType(this);
+        if( row.numericGrade || row.letterGrade){
+            if(row.numericGrade){
+                $(this).prepend("<td><input type='checkbox' class='course-checkbox'></td>");
+                $(this).children().eq(4).attr('nowrap','nowrap');
+                $(this).children().eq(4).wrapInner("<span class='grade' style='padding-right: 6px;'></span>");
+                $(this).children().eq(4).append(" <input type='button' value='+' class='plus'/><input type='button' value='-' class='minus' />");
+            }
+            if(row.letterGrade){
+                $(this).prepend("<td><input type='checkbox' disabled></td>");
+            }
             $(this).addClass('course-row');
         }
         if($(this).children().eq(0).text() == "Kurskod"){
@@ -51,6 +61,32 @@ $("table.resultlist > tbody").attr('id','grade-table');
         }
     });
 })();
+
+function rowType( row ){
+    var courseCode = $(row).children().eq(0).text();
+    var numberOfEntrys = $(row).children().size();
+    var hasNumbericGrade = !isNaN(Number($(row).children().eq(3).text()));
+
+    var numericGrade = false;
+    var letterGrade = false;
+    var notAcourse = false;
+
+    if( courseCode !== "Kurskod" &&  numberOfEntrys >2 && hasNumbericGrade ){
+        numericGrade = true;
+    }
+    else if(courseCode !== "Kurskod" &&  numberOfEntrys >2 && !hasNumbericGrade){
+        letterGrade =true;
+    }
+    else{ 
+        notACourse = true;
+    }
+
+    return {
+        numericGrade:numericGrade,
+        letterGrade:letterGrade,
+        notACourse:notACourse
+    }
+}
 
 /*
  when we click select all,
