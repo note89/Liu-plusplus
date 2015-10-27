@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         studentportalen-extended
 // @namespace    http://ventureinto.space
-// @version      0.1
+// @version      0.2
 // @description  Add missing functionality to studenportalen.liu.se
 // @author       Nils Eriksson niler851@student.liu.se
 // @match        https://www3.student.liu.se/portal/studieresultat/resultat*
