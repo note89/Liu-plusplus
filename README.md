@@ -24,12 +24,14 @@ for the studyresults page
 #### Chrome
 1. Install [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en)
 2. Go to [Greasy Fork](https://greasyfork.org/en/scripts/13401-studentportalen-extended) to install script
-3. Enjoy
+3. Login to Studentportalen and navigate to the study results page
+4. Enjoy
 
 #### Firefox
 1. Install [Greasymonkey](https://addons.mozilla.org/en-us/firefox/addon/greasemonkey/)
 2. Go to [Greasy Fork](https://greasyfork.org/en/scripts/13401-studentportalen-extended) to install script
-3. Enjoy
+3. Login to Studentportalen and navigate to the study results page
+4. Enjoy
 
 #### Internet Explorer
 1. Uninstall Internet Explorer
