@@ -51,7 +51,7 @@ $("table.resultlist > tbody").attr('id','grade-table');
                 $(this).children().eq(4).append(" <input type='button' value='+' class='plus'/><input type='button' value='-' class='minus' />");
             }
             if(row.letterGrade){
-                $(this).prepend("<td><input type='checkbox' disabled></td>");
+                $(this).prepend("<td></td>");
             }
             $(this).addClass('course-row');
         }
