@@ -16,12 +16,20 @@ studentportalen to add extra functionally.
 * Show what area the course belongs to
 
 ## How to use studentportalen-extended
-1. Get chrome
-2. Install [cjs-extension](https://chrome.google.com/webstore/detail/custom-javascript-for-web/poakhlngfciodnhlhhgnaaelnpjljija?hl=en) for chome
-3. Copy paste the code
-4. Add jQuery from the dropdown menu in cjs
-5. Click save
 
+#### Chrome
+1. Install [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en)
+2. Go to [Greasy Fork](https://greasyfork.org/en/scripts/13401-studentportalen-extended) to install script
+3. Enjoy
+
+#### Firefox
+1. Install [Greasymonkey](https://addons.mozilla.org/en-us/firefox/addon/greasemonkey/)
+2. Go to [Greasy Fork](https://greasyfork.org/en/scripts/13401-studentportalen-extended) to install script
+3. Enjoy
+
+#### Internet Explorer
+1.Uninstall Internet Explorer
+2.Install Chrome or Firefox
 
 #### Suggestions and feedback
 You can start a issue if you have an idea for some useful functionality,
