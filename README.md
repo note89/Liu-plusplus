@@ -6,9 +6,12 @@ studentportalen-extended is javascript code that can be injected into
 studentportalen to add extra functionally.
 
 ## What functionally does studentportalen-extended add ?
+studentportalen-extended does at this point only add functionality 
+for the studyresults page
 
 * Average grades (weighted average and average)
 * Se what effects a raising your grades in certain courses will have
+* Highlighting
 
 ### planned functionallty
 * Show the Advancement level (G1, G2, A)
