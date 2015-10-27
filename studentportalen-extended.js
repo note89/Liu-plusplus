@@ -11,7 +11,7 @@
 // ==/UserScript==
 
 
-
+var studiehandbokenBase = "http://kdb-5.liu.se/liu/lith/studiehandboken/svkursplan.lasso?&k_budget_year=2015&k_kurskod="
 
 
 //// VIEW ////
@@ -54,6 +54,7 @@ $("table.resultlist > tbody").attr('id','grade-table');
             if(row.letterGrade){
                 $(this).prepend("<td></td>");
             }
+            $(this).children().eq(1).wrapInner("<a href='"+studiehandbokenBase+$(this).children().eq(1).text()+"'></a>");
             $(this).addClass('course-row');
         }
         if($(this).children().eq(0).text() == "Kurskod"){
@@ -119,7 +120,10 @@ $( '#grade-table' ).delegate( 'tr', 'click', function ( e ) {
     if ( $( e.target ).is( 'input:checkbox' ) ) { 
         this.checked = !this.checked;
         $(this).toggleClass('selected');
-    } else {
+    }else if($( e.target ).parent().is( "a")){
+        e.stopPropagation();
+    }    
+    else {
         $(this).find("input[type='checkbox']").click();
         
     }        
