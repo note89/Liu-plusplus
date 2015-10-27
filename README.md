@@ -33,6 +33,8 @@ for the studyresults page
 3. Login to Studentportalen and navigate to the study results page
 4. Enjoy
 
+> recommend unclicking "Show test results/modules in list"
+
 #### Internet Explorer
 1. Uninstall Internet Explorer
 2. Install Chrome or Firefox
