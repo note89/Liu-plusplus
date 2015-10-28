@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         studentportalen-extended
 // @namespace    http://ventureinto.space
-// @version      0.5
+// @version      0.6
 // @user-agent   Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:22.0) Gecko/20130328 Firefox/22.0
 // @description  Add missing functionality to studenportalen.liu.se
 // @author       Nils Eriksson niler851@student.liu.se
@@ -28,7 +28,9 @@ var getAllCourseData = function(){
             var rowID = $(row).attr('id').replace('*','');
             if(rowID in courses){
                 var level = courses[rowID].level
-                $(row).find('.'+level).attr('selected',true);
+                var select = $(row).find('select');
+                selectAlternative(level, select);
+               // $(row).find('.'+level).attr('selected',true);
 
             }
         });  
@@ -64,11 +66,30 @@ var studiehandbokenBase = "http://kdb-5.liu.se/liu/lith/studiehandboken/svkurspl
 /*
   Create area for grade info
 */
-$("form").append("<div class='container'><div id='snitt' class='col-md-4'><h1>Snitt</h1></div></div>");
+$("form").append("<div id='info-container' class='container'><div id='snitt' class='col-md-6'><h1>Snitt</h1></div></div>");
 $("#snitt").append("<h3 style='margin:0;'>Viktat: <span id='weighted-average-grade'></span></h3>");
 $("#snitt").append("<h3 style='margin:1px;'>Oviktat: <span id='average-grade'></span></h3>");
 $("#snitt").append("<p>Välj alla <input id='select-all' type='checkbox'></p>");
 $("#snitt").append("<p><button id='calculate-btn' type='button'>Beräkna</button></p>");
+
+$("#info-container").append("<div id='course-level' class='col-md-6'></div>");
+$("#course-level").append("<h1>Statestik</h1>");
+$("#course-level").append("<h3>Avancerade hp: <span id='sum-advanced-points'></span></h3>");
+
+
+var sumPointsInLevels = function(){
+
+    
+
+    return {
+        G1: 12,
+        G2: 22,
+        A: 34
+    }
+}
+
+$('#sum-advanced-points').text(sumPointsInLevels().A);
+
 
 /*
  Give the table of courses a id
@@ -316,11 +337,45 @@ function calculateAverages(){
 (function onCourseSelected(){
 $('select').on('change', function(e) {
     var level = $(this).val();
+    var select = $(this).closest('select');
+    
+    selectAlternative(level, select);
+
     var courseID = $(this).closest('tr').attr('id').replace('*','');
     updateCourseLevel(courseID,level);
 });
 
 })();
+
+
+//Helper Functions
+
+var selectAlternative = function(alt, select){
+    select.children().removeAttr('selected');
+    select.find('.'+alt).attr('selected',true);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
