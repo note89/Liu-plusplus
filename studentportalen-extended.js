@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         studentportalen-extended
 // @namespace    http://ventureinto.space
-// @version      0.6
+// @version      0.7
 // @user-agent   Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:22.0) Gecko/20130328 Firefox/22.0
 // @description  Add missing functionality to studenportalen.liu.se
 // @author       Nils Eriksson niler851@student.liu.se
@@ -69,7 +69,9 @@ var studiehandbokenBase = "http://kdb-5.liu.se/liu/lith/studiehandboken/svkurspl
 $("form").append("<div id='info-container' class='container'><div id='snitt' class='col-md-6'><h1>Snitt</h1></div></div>");
 $("#snitt").append("<h3 style='margin:0;'>Viktat: <span id='weighted-average-grade'></span></h3>");
 $("#snitt").append("<h3 style='margin:1px;'>Oviktat: <span id='average-grade'></span></h3>");
-$("#snitt").append("<p>Välj alla <input id='select-all' type='checkbox'></p>");
+$("#snitt").append("<p>Alla <input id='select-all' type='checkbox'></p>");
+$("#snitt").append("<p>Avklarade <input id='select-all-done' type='checkbox'></p>");
+
 $("#snitt").append("<p><button id='calculate-btn' type='button'>Beräkna</button></p>");
 
 $("#info-container").append("<div id='course-level' class='col-md-6'></div>");
@@ -77,18 +79,6 @@ $("#course-level").append("<h1>Statestik</h1>");
 $("#course-level").append("<h3>Avancerade hp: <span id='sum-advanced-points'></span></h3>");
 
 
-var sumPointsInLevels = function(){
-
-    
-
-    return {
-        G1: 12,
-        G2: 22,
-        A: 34
-    }
-}
-
-$('#sum-advanced-points').text(sumPointsInLevels().A);
 
 
 /*
@@ -102,7 +92,7 @@ $("table.resultlist > tbody").attr('id','grade-table');
 
 var levelBox ='\
 <td>\
-<select class="cource-levels">\
+<select class="course-levels">\
 <option class="G1" value="G1">G1</option>\
 <option class="G2" value="G2">G2</option>\
 <option class="A" value="A">A</option>\
@@ -126,6 +116,7 @@ var levelBox ='\
         if( row.numericGrade || row.letterGrade){
             if(row.numericGrade){
                 $(this).prepend("<td><input type='checkbox' class='course-checkbox'></td>");
+                
                 $(this).children().eq(4).attr('nowrap','nowrap');
                 $(this).children().eq(4).wrapInner("<span class='grade' style='padding-right: 6px; display:inline-block; width:4px;'></span>");
                 $(this).children().eq(4).append(" <input type='button' value='+' class='plus' /><input type='button' value='-' class='minus' />");
@@ -133,6 +124,12 @@ var levelBox ='\
             if(row.letterGrade){
                 $(this).prepend("<td></td>");
             }
+            $(this).children().eq(3).addClass("hp");
+            $(this).children().eq(1).addClass("course-code");
+            //is course finished ?
+            if($(this).children().eq(1).text().indexOf("*") > 0){ $(this).children().eq(1).addClass("is-finished");}
+            //
+            
             $(this).children().eq(1).wrapInner("<a href='"+studiehandbokenBase+$(this).children().eq(1).text()+"'></a>");
             $(this).addClass('course-row');
             $(this).attr('id',$(this).children().eq(1).text());
@@ -193,6 +190,30 @@ $("#select-all").click(function(event){
     }
 
 });
+   
+$("#select-all-done").click(function(event){
+    event.stopPropagation();
+
+    if(this.checked){
+        $('.course-checkbox').each(function(){
+            
+            var row = $(this).closest("tr");
+            if(row.find('.is-finished').length != 0){
+                this.checked = true;
+             row.addClass('selected');
+            }
+
+        });
+    }
+    else{
+        $('.course-checkbox').each(function(){
+            this.checked = false;
+            $(this).closest("tr").removeClass('selected');
+        });
+    }
+
+});
+                         
 
 /*
  pression a row should make it checked and highlighted
@@ -220,7 +241,9 @@ $( '#grade-table' ).delegate( 'tr', 'click', function ( e ) {
  then put the numbers in the view for the user to se
 **/
 $("#calculate-btn").click(function(event){
+    var levelPoints = sumPointsInLevels();
     var grades = calculateAverages();
+    $('#sum-advanced-points').text(levelPoints.A);
     $('#average-grade').text(grades.average.toFixed(2));
     $('#weighted-average-grade').text(grades.WeightedAverage.toFixed(2));
 });
@@ -346,6 +369,38 @@ $('select').on('change', function(e) {
 });
 
 })();
+
+
+var sumPointsInLevels = function(){
+
+    var selectedRows = $(".course-checkbox:checked").parent().parent();
+    function findAndSumLevel(level){
+        var sum = 0;
+        var selectedRows = $(".course-checkbox:checked").parent().parent();
+        selectedRows.each(function(i,obj){
+            if($(obj).find('.course-levels').val() === level)
+            {
+             var hp = Number($(obj).find('.hp').text());
+             sum +=hp;
+            }
+            
+        });
+
+        return sum;
+    }
+    var levelA  = findAndSumLevel("A");
+    var levelG1 = findAndSumLevel("G1");
+    var levelG2 = findAndSumLevel("G2");
+    var empty   = findAndSumLevel("empty");
+    return {
+        G1: levelG1,
+        G2: levelG2,
+        A: levelA,
+        empty:empty
+    }
+};
+
+
 
 
 //Helper Functions
