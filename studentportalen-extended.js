@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         studentportalen-extended
 // @namespace    http://ventureinto.space
-// @version      0.3
+// @version      0.4
 // @user-agent   Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:22.0) Gecko/20130328 Firefox/22.0
 // @description  Add missing functionality to studenportalen.liu.se
 // @author       Nils Eriksson niler851@student.liu.se
