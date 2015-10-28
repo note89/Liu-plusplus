@@ -20,7 +20,6 @@
 
 var myFirebaseRef = new Firebase("https://studentportalen-data.firebaseio.com/");
 
-
 var getAllCourseData = function(){
     var fireCourses = myFirebaseRef.child("courses");
     fireCourses.on("value", function(snapshot) {
@@ -308,14 +307,14 @@ function calculateAverages(){
     })();
 
 (function selectLevel(){
-    $('.level').click(function(e){
+    $('select').click(function(e){
+        e.preventDefault();
         e.stopPropagation();
-
     });
 })();
 
 (function onCourseSelected(){
-$('select').on('change', function() {
+$('select').on('change', function(e) {
     var level = $(this).val();
     var courseID = $(this).closest('tr').attr('id');
     updateCourseLevel(courseID,level);
