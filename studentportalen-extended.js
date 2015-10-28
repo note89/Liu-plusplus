@@ -12,7 +12,6 @@
 // @grant        GM_addStyle
 // @grant        GM_xmlhttpRequest
 // @require      http://code.jquery.com/jquery-2.1.4.min.js
-// @require      https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js
 // @require      https://cdn.firebase.com/js/client/2.3.1/firebase.js
 // @resource     bootcss https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css
 // ==/UserScript==
