@@ -12,9 +12,10 @@ for the studyresults page
 * Average grades (weighted average and average)
 * Se what effects a raising your grades in certain courses will have
 * Highlighting
+* Wiki Advancement level  
+* See how many advancedpoints you have taken
 
 ### planned functionallty
-* Show the Advancement level (G1, G2, A)
 * Show what faculty the course belongs to
 * Show what area the course belongs to
 * Support for filfak grades (G,VG)
@@ -27,7 +28,7 @@ for the studyresults page
 3. Login to Studentportalen and navigate to the study results page
 4. Enjoy
 
-#### Firefox
+#### Firefox ( missing functionality)
 1. Install [Greasymonkey](https://addons.mozilla.org/en-us/firefox/addon/greasemonkey/)
 2. Go to [Greasy Fork](https://greasyfork.org/en/scripts/13401-studentportalen-extended) to install script
 3. Login to Studentportalen and navigate to the study results page
