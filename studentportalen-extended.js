@@ -1,14 +1,62 @@
 // ==UserScript==
 // @name         studentportalen-extended
 // @namespace    http://ventureinto.space
-// @version      0.2
+// @version      0.3
+// @user-agent   Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:22.0) Gecko/20130328 Firefox/22.0
 // @description  Add missing functionality to studenportalen.liu.se
 // @author       Nils Eriksson niler851@student.liu.se
+// @updateURL    https://raw.githubusercontent.com/Niler851/studentportalen-extended/master/studentportalen-extended.js
+// @downloadURL  https://raw.githubusercontent.com/Niler851/studentportalen-extended/master/studentportalen-extended.js
 // @match        https://www3.student.liu.se/portal/studieresultat/resultat*
-// @grant        GM_xmlhttpRequest 
+// @grant        GM_getResourceText
+// @grant        GM_addStyle
+// @grant        GM_xmlhttpRequest
 // @require      http://code.jquery.com/jquery-2.1.4.min.js
+// @require      https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js
 // @require      https://cdn.firebase.com/js/client/2.3.1/firebase.js
+// @resource     bootcss https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css
 // ==/UserScript==
+
+/* set up FireBASE */
+
+var myFirebaseRef = new Firebase("https://studentportalen-data.firebaseio.com/");
+
+
+var getAllCourseData = function(){
+    var fireCourses = myFirebaseRef.child("courses");
+    fireCourses.on("value", function(snapshot) {
+        var courses = snapshot.val();
+        $('.course-row').each(function(i, row){
+            var rowID = $(row).attr('id').replace('*','');
+            if(rowID in courses){
+                var level = courses[rowID].level
+                $(row).find('.'+level).attr('selected',true);
+
+            }
+        });  
+
+
+    }, function (errorObject) {
+        console.log("The read failed: " + errorObject.code);
+    });
+}();
+
+
+var updateCourseLevel = function(course ,level){
+    var fireCourses = myFirebaseRef.child("courses");
+    fireCourses.child(course).set({ "level": level});
+}
+
+/* END OF FIREBASE */
+
+
+
+$("head").prepend('<meta charset="utf-8">');
+
+console.debug('start: add CSS');
+var bootcss = GM_getResourceText('bootcss');
+GM_addStyle(bootcss);
+console.debug('done: add CSS');
 
 
 var studiehandbokenBase = "http://kdb-5.liu.se/liu/lith/studiehandboken/svkursplan.lasso?&k_budget_year=2015&k_kurskod="
@@ -18,18 +66,30 @@ var studiehandbokenBase = "http://kdb-5.liu.se/liu/lith/studiehandboken/svkurspl
 /*
   Create area for grade info
 */
-$("form").append("<div id='snitt' ><h1>Snitt</h1></div>");
+$("form").append("<div id='snitt'><h1>Snitt</h1></div>");
 $("#snitt").append("<h3 style='margin:0;'>Viktat: <span id='weighted-average-grade'></span></h3>");
 $("#snitt").append("<h3 style='margin:1px;'>Oviktat: <span id='average-grade'></span></h3>");
-$("#snitt").append("<p>Select all <input id='select-all' type='checkbox'></p>");
-$("#snitt").append("<p><button id='calculate-btn' type='button'>Calculate</button></p>");
-
+$("#snitt").append("<p>Välj alla <input id='select-all' type='checkbox'></p>");
+$("#snitt").append("<p><button id='calculate-btn' type='button'>Beräkna</button></p>");
 
 /*
  Give the table of courses a id
 */
 $("table.resultlist > tbody").attr('id','grade-table');
 
+
+//var createLevelBox = function(selectedLevel){
+
+
+var levelBox ='\
+<td>\
+<select class="cource-levels">\
+<option class="G1" value="G1">G1</option>\
+<option class="G2" value="G2">G2</option>\
+<option class="A" value="A">A</option>\
+<option class="empty" value="empty" selected></option>\
+</select>\
+</td>';
 
 
 
@@ -48,18 +108,22 @@ $("table.resultlist > tbody").attr('id','grade-table');
             if(row.numericGrade){
                 $(this).prepend("<td><input type='checkbox' class='course-checkbox'></td>");
                 $(this).children().eq(4).attr('nowrap','nowrap');
-                $(this).children().eq(4).wrapInner("<span class='grade' style='padding-right: 6px;'></span>");
-                $(this).children().eq(4).append(" <input type='button' value='+' class='plus'/><input type='button' value='-' class='minus' />");
+                $(this).children().eq(4).wrapInner("<span class='grade' style='padding-right: 6px; display:inline-block; width:4px;'></span>");
+                $(this).children().eq(4).append(" <input type='button' value='+' class='plus' /><input type='button' value='-' class='minus' />");
             }
             if(row.letterGrade){
                 $(this).prepend("<td></td>");
             }
             $(this).children().eq(1).wrapInner("<a href='"+studiehandbokenBase+$(this).children().eq(1).text()+"'></a>");
             $(this).addClass('course-row');
+            $(this).attr('id',$(this).children().eq(1).text());
+            $(this).append(levelBox);
         }
         if($(this).children().eq(0).text() == "Kurskod"){
-            $(this).prepend("<th>Select</th>");
+            $(this).prepend("<th>Vald</th>");
+            //HP padding
             $(this).children().eq(3).attr('style','padding-right:23px');
+            $(this).append("<th>Nivå</th>");
         }
     });
 })();
@@ -125,7 +189,7 @@ $( '#grade-table' ).delegate( 'tr', 'click', function ( e ) {
     }    
     else {
         $(this).find("input[type='checkbox']").click();
-        
+
     }        
 });
 
@@ -144,7 +208,7 @@ $("#calculate-btn").click(function(event){
 
 /*
  Add hover highlighting for course-rows
- 
+
 */
 document.styleSheets[0].insertRule('.course-row:hover { background-color: #FF9; outline: thin solid black;}', 0);
 document.styleSheets[0].insertRule('.selected { background-color: #FFC; outline: thin solid black;}', 0);
@@ -155,18 +219,6 @@ document.styleSheets[0].insertRule('.selected { background-color: #FFC; outline:
 
 /// Controllers /////
 
-/*
- FireBase
-*/
-$(function(){
-    var courses = new Firebase('https://studentportalen-data.firebaseio.com/');
-    courses.push({
-        path: window.location.pathname,
-        arrivedAt: Firebase.ServerValue.TIMESTAMP,
-        userAgent: navigator.userAgent
-    });
-
-});
 
 /*
  This function calculated the average and weighted average
@@ -235,7 +287,7 @@ function calculateAverages(){
     });
 
     $('.minus').click(function(e){
-                e.stopPropagation();
+        e.stopPropagation();
         var gradeElement = $(this).prevAll(".grade");
         var grade = Number(gradeElement.text());
         // If is not undefined
@@ -255,6 +307,22 @@ function calculateAverages(){
     }
 
     })();
+
+(function selectLevel(){
+    $('.level').click(function(e){
+        e.stopPropagation();
+
+    });
+})();
+
+(function onCourseSelected(){
+$('select').on('change', function() {
+    var level = $(this).val();
+    var courseID = $(this).closest('tr').attr('id');
+    updateCourseLevel(courseID,level);
+});
+
+})();
 
 
 
