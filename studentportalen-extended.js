@@ -64,7 +64,7 @@ var studiehandbokenBase = "http://kdb-5.liu.se/liu/lith/studiehandboken/svkurspl
 /*
   Create area for grade info
 */
-$("form").append("<div id='snitt'><h1>Snitt</h1></div>");
+$("form").append("<div class='container'><div id='snitt' class='col-md-4'><h1>Snitt</h1></div></div>");
 $("#snitt").append("<h3 style='margin:0;'>Viktat: <span id='weighted-average-grade'></span></h3>");
 $("#snitt").append("<h3 style='margin:1px;'>Oviktat: <span id='average-grade'></span></h3>");
 $("#snitt").append("<p>Välj alla <input id='select-all' type='checkbox'></p>");
@@ -316,7 +316,7 @@ function calculateAverages(){
 (function onCourseSelected(){
 $('select').on('change', function(e) {
     var level = $(this).val();
-    var courseID = $(this).closest('tr').attr('id');
+    var courseID = $(this).closest('tr').attr('id').replace('*','');
     updateCourseLevel(courseID,level);
 });
 
