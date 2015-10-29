@@ -1,0 +1,40 @@
+{
+  "manifest_version": 2,
+  "name": "studentportalen-extended",
+  "description": "This extension shows a Google Image search result for the current page",
+  "version": "1.0",
+  "icons": { "16": "favicon16.png",
+    "48": "favicon48.png",
+    "128": "favicon128.png" },
+  "browser_action": {
+    "default_icon": "favicon16.png",
+    "default_popup": "popup.html",
+    "default_title": "Click here!"
+  },
+  "web_accessible_resources": [
+    "node_modules/bootstrap/dist/css/bootstrap.min.css"
+  ],
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www3.student.liu.se/*"
+      ],
+      "css": [
+        "css/normal.css",
+        "node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "css/style.css"
+      ],
+      "js": [
+        "node_modules/jquery/dist/jquery.js",
+        "node_modules/bootstrap/dist/js/bootstrap.js",
+        "node_modules/firebase/lib/firebase-web.js",
+        "studentportalen.js"
+      ]
+    }
+  ],
+  "content_security_policy": "script-src 'self' https://cdn.firebase.com https://*.firebaseio.com; object-src 'self'",
+  "permissions": [
+    "activeTab",
+    "https://ajax.googleapis.com/"
+  ]
+}
