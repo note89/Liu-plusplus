@@ -16,3 +16,7 @@
 .results-table {
     width: 90%;
 }
+
+.tooltip-inner {
+    white-space:pre-wrap;
+}

@@ -76,10 +76,9 @@ var levelBox = '\
  of rasing them
  **/
 
-var toolTipTemplate = 'Detta fält är en WIKI. \
-Ändringar syncas mellan användare.\
-Hjälp till och hålla dem aktuella\
-';
+var toolTipTemplate = 'Detta fält är en WIKI.\n';
+toolTipTemplate += 'Ändringar syncas mellan alla användare.\n';
+toolTipTemplate += 'Hjälp till och hålla dem aktuella\n';
 
 (function expandTableOfGrades() {
     $("#grade-table").children().each(function () {
