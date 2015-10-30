@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "studentportalen-extended",
-  "description": "This extension shows a Google Image search result for the current page",
+  "description": "This extension brings new functionallity to studentportalen",
   "version": "1.0",
   "icons": { "16": "favicon16.png",
     "48": "favicon48.png",
@@ -17,7 +17,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://www3.student.liu.se/*"
+        "https://www3.student.liu.se/portal/studieresultat/*"
       ],
       "css": [
         "css/normal.css",
@@ -28,7 +28,9 @@
         "node_modules/jquery/dist/jquery.js",
         "node_modules/bootstrap/dist/js/bootstrap.js",
         "node_modules/firebase/lib/firebase-web.js",
+        "app/results/view.js",
         "studentportalen.js"
+
       ]
     }
   ],

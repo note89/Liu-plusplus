@@ -1,6 +1,5 @@
 
 /* set up FireBASE */
-console.log("heeeeeeeeejN");
 var myFirebaseRef = new Firebase("https://studentportalen-data.firebaseio.com/");
 
 var getAllCourseData = function(){
@@ -49,22 +48,6 @@ var studiehandbokenBase = "http://kdb-5.liu.se/liu/lith/studiehandboken/svkurspl
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 });
-
-/*
- Create area for grade info
- */
-$("form").append("<div id='info-container' class='container'><div id='snitt' class='col-md-6'><h1>Snitt</h1></div></div>");
-$("#snitt").append("<h3 style='margin:0;'>Viktat: <span id='weighted-average-grade'></span></h3>");
-$("#snitt").append("<h3 style='margin:1px;'>Oviktat: <span id='average-grade'></span></h3>");
-$("#snitt").append("<p>Alla <input id='select-all' type='checkbox'></p>");
-$("#snitt").append("<p>Avklarade <input id='select-all-done' type='checkbox'></p>");
-
-$("#snitt").append("<p><button id='calculate-btn' type='button'>Beräkna</button></p>");
-
-$("#info-container").append("<div id='course-level' class='col-md-6'></div>");
-$("#course-level").append("<h1>Statestik</h1>");
-$("#course-level").append("<h3>Avancerade hp: <span id='sum-advanced-points'></span></h3>");
-
 
 
 
@@ -164,28 +147,13 @@ function rowType( row ){
 }
 
 /*
- when we click select all,
- all checkboxes shoul be selected.
+ when we click 'select-all-done' all done courses
+ should be selected,
  */
-$("#select-all").click(function(event){
-    event.stopPropagation();
-    if(this.checked){
-        $('.course-checkbox').each(function(){
-            this.checked = true;
-            $(this).closest("tr").addClass('selected');
-        });
-    }
-    else{
-        $('.course-checkbox').each(function(){
-            this.checked = false;
-            $(this).closest("tr").removeClass('selected');
-        });
-    }
-
-});
 
 $("#select-all-done").click(function(event){
     event.stopPropagation();
+    console.log('herp derp');
 
     if(this.checked){
         $('.course-checkbox').each(function(){
