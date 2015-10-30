@@ -90,7 +90,7 @@ Hjälp till och hålla dem aktuella\
             $(this).prepend("<td><input type='checkbox' class='course-checkbox'></td>");
 
             $(this).children().eq(4).attr('nowrap', 'nowrap');
-            $(this).children().eq(4).wrapInner("<span class='grade' style='padding-right: 6px; display:inline-block; width:4px;'></span>");
+            $(this).children().eq(4).wrapInner("<span class='grade'></span>");
             $(this).children().eq(4).append(" <input type='button' value='+' class='plus' /><input type='button' value='-' class='minus' />");
 
             $(this).children().eq(3).addClass("hp");

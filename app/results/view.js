@@ -31,5 +31,5 @@ $("#course-level").append("<h3 style='margin-top:5px;'>Totalt hp: <span class='n
 
 
 $("body >table:not(:first)").css('margin-left','120px');
-$(".results-list").css('width','100%');
+$(".resultlist").css('width','100%');
 $(".resultlist").wrap('<div class="col-xs-12"></div>');
