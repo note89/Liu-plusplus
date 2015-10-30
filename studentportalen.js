@@ -1,14 +1,13 @@
-
 /* set up FireBASE */
 var myFirebaseRef = new Firebase("https://studentportalen-data.firebaseio.com/");
 
-var getAllCourseData = function(){
+var getAllCourseData = function () {
     var fireCourses = myFirebaseRef.child("courses");
-    fireCourses.on("value", function(snapshot) {
+    fireCourses.on("value", function (snapshot) {
         var courses = snapshot.val();
-        $('.course-row').each(function(i, row){
-            var rowID = $(row).attr('id').replace('*','');
-            if(rowID in courses){
+        $('.course-row').each(function (i, row) {
+            var rowID = $(row).attr('id').replace('*', '');
+            if (rowID in courses) {
                 var level = courses[rowID].level
                 var select = $(row).find('select');
                 selectAlternative(level, select);
@@ -24,13 +23,12 @@ var getAllCourseData = function(){
 }();
 
 
-var updateCourseLevel = function(course ,level){
+var updateCourseLevel = function (course, level) {
     var fireCourses = myFirebaseRef.child("courses");
-    fireCourses.child(course).set({ "level": level});
+    fireCourses.child(course).set({"level": level});
 }
 
 /* END OF FIREBASE */
-
 
 
 $("head").prepend('<meta charset="utf-8">');
@@ -45,22 +43,21 @@ var studiehandbokenBase = "http://kdb-5.liu.se/liu/lith/studiehandboken/svkurspl
 
 
 //// VIEW ////
-$(document).ready(function(){
+$(document).ready(function () {
     $('[data-toggle="tooltip"]').tooltip();
 });
-
 
 
 /*
  Give the table of courses a id
  */
-$("table.resultlist > tbody").attr('id','grade-table');
+$("table.resultlist > tbody").attr('id', 'grade-table');
 
 
 //var createLevelBox = function(selectedLevel){
 
 
-var levelBox ='\
+var levelBox = '\
 <td>\
 <select class="course-levels">\
 <option class="G1" value="G1">G1</option>\
@@ -71,7 +68,6 @@ var levelBox ='\
 </td>';
 
 
-
 /**
  MODIFY THE TABLE OF GRADES
  -Add new header "Selected"
@@ -80,47 +76,53 @@ var levelBox ='\
  of rasing them
  **/
 
-var toolTipTemplate ='Detta fält är en WIKI \
-Dvs om du ändrar nått så\
-ser påverkar det alla andra\
+var toolTipTemplate = 'Detta fält är en WIKI. \
+Ändringar syncas mellan användare.\
+Hjälp till och hålla dem aktuella\
 ';
 
-(function expandTableOfGrades(){
-    $("#grade-table").children().each(function(){
+(function expandTableOfGrades() {
+    $("#grade-table").children().each(function () {
 
         var row = rowType(this);
-        if( row.numericGrade || row.letterGrade){
-            if(row.numericGrade){
-                $(this).prepend("<td><input type='checkbox' class='course-checkbox'></td>");
+        if (row.numericGrade || row.letterGrade) {
 
-                $(this).children().eq(4).attr('nowrap','nowrap');
-                $(this).children().eq(4).wrapInner("<span class='grade' style='padding-right: 6px; display:inline-block; width:4px;'></span>");
-                $(this).children().eq(4).append(" <input type='button' value='+' class='plus' /><input type='button' value='-' class='minus' />");
-            }
-            if(row.letterGrade){
-                $(this).prepend("<td></td>");
-            }
+            $(this).prepend("<td><input type='checkbox' class='course-checkbox'></td>");
+
+            $(this).children().eq(4).attr('nowrap', 'nowrap');
+            $(this).children().eq(4).wrapInner("<span class='grade' style='padding-right: 6px; display:inline-block; width:4px;'></span>");
+            $(this).children().eq(4).append(" <input type='button' value='+' class='plus' /><input type='button' value='-' class='minus' />");
+
             $(this).children().eq(3).addClass("hp");
             $(this).children().eq(1).addClass("course-code");
             //is course finished ?
-            if($(this).children().eq(1).text().indexOf("*") > 0){ $(this).children().eq(1).addClass("is-finished");}
+            if ($(this).children().eq(1).text().indexOf("*") > 0) {
+                $(this).children().eq(1).addClass("is-finished");
+            }
             //
 
-            $(this).children().eq(1).wrapInner("<a href='"+studiehandbokenBase+$(this).children().eq(1).text()+"'></a>");
+            $(this).children().eq(1).wrapInner("<a href='" + studiehandbokenBase + $(this).children().eq(1).text() + "'></a>");
             $(this).addClass('course-row');
-            $(this).attr('id',$(this).children().eq(1).text());
+            $(this).attr('id', $(this).children().eq(1).text());
             $(this).append(levelBox);
         }
-        if($(this).children().eq(0).text() == "Kurskod"){
+        if ($(this).children().eq(0).text() == "Kurskod") {
             $(this).prepend("<th>Vald</th>");
             //HP padding
-            $(this).children().eq(3).attr('style','padding-right:23px');
-            $(this).append('<th data-toggle="tooltip" title="'+toolTipTemplate+'" >Nivå</th>');
+            if ($(this).children().eq(4).text() != "Betyg") {
+                $(this).append('<th>Betyg</th>');
+                $(this).append('<th></th>');
+            }
+
+
+            $(this).children().eq(3).attr('style', 'padding-right:23px');
+            $(this).append('<th data-toggle="tooltip" title="' + toolTipTemplate + '" class="th-level">Nivå' +
+                '<span class="text-muted">?</span></th>');
         }
     });
 })();
 
-function rowType( row ){
+function rowType(row) {
     var header = $(row).children().eq(0).is("th");
     var numberOfEntrys = $(row).children().size();
     var hasNumbericGrade = !isNaN(Number($(row).children().eq(3).text()));
@@ -129,20 +131,20 @@ function rowType( row ){
     var letterGrade = false;
     var notAcourse = false;
 
-    if( !header &&  numberOfEntrys >2 && hasNumbericGrade ){
+    if (!header && numberOfEntrys > 2 && hasNumbericGrade) {
         numericGrade = true;
     }
-    else if( !header  &&  numberOfEntrys >2 && !hasNumbericGrade){
-        letterGrade =true;
+    else if (!header && numberOfEntrys > 2 && !hasNumbericGrade) {
+        letterGrade = true;
     }
-    else{
+    else {
         notACourse = true;
     }
 
     return {
-        numericGrade:numericGrade,
-        letterGrade:letterGrade,
-        notACourse:notACourse
+        numericGrade: numericGrade,
+        letterGrade: letterGrade,
+        notACourse: notACourse
     }
 }
 
@@ -151,23 +153,23 @@ function rowType( row ){
  should be selected,
  */
 
-$("#select-all-done").click(function(event){
+$("#select-all-done").click(function (event) {
     event.stopPropagation();
     console.log('herp derp');
 
-    if(this.checked){
-        $('.course-checkbox').each(function(){
+    if (this.checked) {
+        $('.course-checkbox').each(function () {
 
             var row = $(this).closest("tr");
-            if(row.find('.is-finished').length != 0){
+            if (row.find('.is-finished').length != 0) {
                 this.checked = true;
                 row.addClass('selected');
             }
 
         });
     }
-    else{
-        $('.course-checkbox').each(function(){
+    else {
+        $('.course-checkbox').each(function () {
             this.checked = false;
             $(this).closest("tr").removeClass('selected');
         });
@@ -181,11 +183,11 @@ $("#select-all-done").click(function(event){
  */
 
 
-$( '#grade-table' ).delegate( 'tr', 'click', function ( e ) {
-    if ( $( e.target ).is( 'input:checkbox' ) ) {
+$('#grade-table').delegate('tr', 'click', function (e) {
+    if ($(e.target).is('input:checkbox')) {
         this.checked = !this.checked;
         $(this).toggleClass('selected');
-    }else if($( e.target ).parent().is( "a")){
+    } else if ($(e.target).parent().is("a")) {
         e.stopPropagation();
     }
     else {
@@ -195,16 +197,18 @@ $( '#grade-table' ).delegate( 'tr', 'click', function ( e ) {
 });
 
 
-
 /**
  When we click the button "Calculate"
  we first call calculateAverages();
  then put the numbers in the view for the user to se
  **/
-$("#calculate-btn").click(function(event){
+$("#calculate-btn").click(function (event) {
     var levelPoints = sumPointsInLevels();
     var grades = calculateAverages();
     $('#sum-advanced-points').text(levelPoints.A);
+    $('#sum-other-points').text(levelPoints.G1 + levelPoints.G2 + levelPoints.empty);
+    $('#sum-abroad-n-test-points').text(findCreditsCourse() + findCreditsTests());
+    $('#sum-total-points').text(levelPoints.A + levelPoints.G1 + levelPoints.G2 + levelPoints.empty + findCreditsCourse() + findCreditsTests());
     $('#average-grade').text(grades.average.toFixed(2));
     $('#weighted-average-grade').text(grades.WeightedAverage.toFixed(2));
 });
@@ -217,9 +221,6 @@ document.styleSheets[0].insertRule('.course-row:hover { background-color: #FF9; 
 document.styleSheets[0].insertRule('.selected { background-color: #FFC; outline: thin solid black;}', 0);
 
 
-
-
-
 /// Controllers /////
 
 
@@ -228,41 +229,41 @@ document.styleSheets[0].insertRule('.selected { background-color: #FFC; outline:
  of selected fields.
  */
 
-function calculateAverages(){
+function calculateAverages() {
 
     var selectedRows = $(".course-checkbox:checked").parent().parent();
 
 
-    var avrage = (function(){
+    var avrage = (function () {
         var gradesWithoutNumbers = 0;
         var sum = 0;
-        selectedRows.each(function(){
+        selectedRows.each(function () {
             var grade = Number($(this).children().eq(4).text());
-            if( !isNaN(grade)){
+            if (!isNaN(grade)) {
                 sum += grade;
-            }else{
+            } else {
                 gradesWithoutNumbers++;
             }
         });
 
         var coursesWithRegularGrades = selectedRows.size() - gradesWithoutNumbers;
-        var avrage = sum/coursesWithRegularGrades;
+        var avrage = sum / coursesWithRegularGrades;
 
         return avrage;
     })();
 
-    var WeightedAverage = (function(){
+    var WeightedAverage = (function () {
         var pointsSum = 0;
-        var pointsTimesGradeSum =0;
-        selectedRows.each(function(){
+        var pointsTimesGradeSum = 0;
+        selectedRows.each(function () {
             var grade = Number($(this).children().eq(4).text());
             var points = Number($(this).children().eq(3).text());
-            if( !isNaN(grade)){
+            if (!isNaN(grade)) {
                 pointsSum += points;
-                pointsTimesGradeSum += points*grade;
+                pointsTimesGradeSum += points * grade;
             }
         });
-        return pointsTimesGradeSum/pointsSum;
+        return pointsTimesGradeSum / pointsSum;
     })();
 
 
@@ -273,101 +274,110 @@ function calculateAverages(){
 }
 
 
-(function plusMinus(){
+(function plusMinus() {
 
-    $('.plus').click(function(e){
+    $('.plus').click(function (e) {
         e.stopPropagation();
-        var gradeElement =$(this).prev(".grade");
+        var gradeElement = $(this).prev(".grade");
         var grade = Number(gradeElement.text());
         // If is not undefined
         if (!isNaN(grade)) {
             // Increment
-            $(gradeElement).text(boundValue(grade+1));
+            $(gradeElement).text(boundValue(grade + 1));
         } else {
             // Otherwise put a 0 there
             $(gradeElement).text(0);
         }
     });
 
-    $('.minus').click(function(e){
+    $('.minus').click(function (e) {
         e.stopPropagation();
         var gradeElement = $(this).prevAll(".grade");
         var grade = Number(gradeElement.text());
         // If is not undefined
         if (!isNaN(grade)) {
             // Increment
-            $(gradeElement).text(boundValue(grade-1));
+            $(gradeElement).text(boundValue(grade - 1));
         } else {
             // Otherwise put a 0 there
             $(gradeElement).text(0);
         }
     });
 
-    var boundValue = function(value){
-        if(value > 5)return 5;
-        if(value < 3)return 3;
+    var boundValue = function (value) {
+        if (value > 5)return 5;
+        if (value < 3)return 3;
         return value;
     }
 
 })();
 
-(function selectLevel(){
-    $('select').click(function(e){
+(function selectLevel() {
+    $('select').click(function (e) {
         e.preventDefault();
         e.stopPropagation();
     });
 })();
 
-(function onCourseSelected(){
-    $('select').on('change', function(e) {
+(function onCourseSelected() {
+    $('select').on('change', function (e) {
         var level = $(this).val();
         var select = $(this).closest('select');
 
         selectAlternative(level, select);
 
-        var courseID = $(this).closest('tr').attr('id').replace('*','');
-        updateCourseLevel(courseID,level);
+        var courseID = $(this).closest('tr').attr('id').replace('*', '');
+        updateCourseLevel(courseID, level);
     });
 
 })();
 
 
-var sumPointsInLevels = function(){
+var sumPointsInLevels = function () {
 
     var selectedRows = $(".course-checkbox:checked").parent().parent();
-    function findAndSumLevel(level){
+
+    function findAndSumLevel(level) {
         var sum = 0;
         var selectedRows = $(".course-checkbox:checked").parent().parent();
-        selectedRows.each(function(i,obj){
-            if($(obj).find('.course-levels').val() === level)
-            {
+        selectedRows.each(function (i, obj) {
+            if ($(obj).find('.course-levels').val() === level) {
                 var hp = Number($(obj).find('.hp').text());
-                sum +=hp;
+                sum += hp;
             }
 
         });
 
         return sum;
     }
-    var levelA  = findAndSumLevel("A");
+
+    var levelA = findAndSumLevel("A");
     var levelG1 = findAndSumLevel("G1");
     var levelG2 = findAndSumLevel("G2");
-    var empty   = findAndSumLevel("empty");
+    var empty = findAndSumLevel("empty");
     return {
         G1: levelG1,
         G2: levelG2,
         A: levelA,
-        empty:empty
+        empty: empty
     }
 };
 
+var findCreditsCourse = function () {
+    var credits = $(".tillgodolist ~ table tr").eq(4).children().eq(1).text();
+    return Number(credits);
 
+}
+var findCreditsTests = function () {
+    var credits = $(".tillgodolist ~ table tr").eq(5).children().eq(1).text();
+    return Number(credits);
+}
 
 
 //Helper Functions
 
-var selectAlternative = function(alt, select){
+var selectAlternative = function (alt, select) {
     select.children().removeAttr('selected');
-    select.find('.'+alt).attr('selected',true);
+    select.find('.' + alt).attr('selected', true);
 }
 
