@@ -92,8 +92,14 @@ toolTipTemplate += 'Hjälp till och hålla dem aktuella\n';
             $(this).children().eq(4).wrapInner("<span class='grade'></span>");
             $(this).children().eq(4).append(" <input type='button' value='+' class='plus' /><input type='button' value='-' class='minus' />");
 
-            $(this).children().eq(3).addClass("hp");
+
             $(this).children().eq(1).addClass("course-code");
+            $(this).children().eq(2).addClass("course-name");
+            $(this).children().eq(3).addClass("hp"); // TODO:refactor
+            $(this).children().eq(4).addClass("course-grade");
+            $(this).children().eq(5).addClass("course-date");
+            $(this).children().eq(6).addClass("course-level");
+
             //is course finished ?
             if ($(this).children().eq(1).text().indexOf("*") > 0) {
                 $(this).children().eq(1).addClass("is-finished");
@@ -200,6 +206,8 @@ $('#grade-table').delegate('tr', 'click', function (e) {
  we first call calculateAverages();
  then put the numbers in the view for the user to se
  **/
+
+
 $("#calculate-btn").click(function (event) {
     var levelPoints = sumPointsInLevels();
     var grades = calculateAverages();
