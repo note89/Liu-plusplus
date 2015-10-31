@@ -25,3 +25,12 @@ på studieresultat sidan.
 3. aktivera developermode
 4. ladda in repot
 5. rock and roll
+
+
+### injicera javascript låter farligt
+pluginen tar bara effekt när du väl är inloggad 
+och kan inte sno dina loginuppgifter. 
+Chrome och firefox tillåter inte plugin att läsa 
+av ditt lösenord.
+Allt som programmet gör går att läsa i filerna ovan.
+
