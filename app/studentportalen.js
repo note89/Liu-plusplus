@@ -86,7 +86,12 @@ toolTipTemplate += 'Hjälp till och hålla dem aktuella\n';
         var row = rowType(this);
         if (row.numericGrade || row.letterGrade) {
 
-            $(this).prepend("<td><input type='checkbox' class='course-checkbox'></td>");
+            if(row.courseComponent){
+                $(this).prepend("<td></td>");
+            }else{
+                $(this).prepend("<td><input type='checkbox' class='course-checkbox'></td>");
+            }
+
 
             $(this).children().eq(4).attr('nowrap', 'nowrap');
             $(this).children().eq(4).wrapInner("<span class='grade'></span>");
@@ -131,10 +136,16 @@ function rowType(row) {
     var header = $(row).children().eq(0).is("th");
     var numberOfEntrys = $(row).children().size();
     var hasNumbericGrade = !isNaN(Number($(row).children().eq(3).text()));
+    var hasBoldText = $(row).children().eq(0).find("b").length != 0;
 
     var numericGrade = false;
     var letterGrade = false;
-    var notAcourse = false;
+    var notACourse = false;
+    var courseComponent = false;
+
+    if(!hasBoldText){
+        courseComponent = true;
+    }
 
     if (!header && numberOfEntrys > 2 && hasNumbericGrade) {
         numericGrade = true;
@@ -149,6 +160,7 @@ function rowType(row) {
     return {
         numericGrade: numericGrade,
         letterGrade: letterGrade,
+        courseComponent: courseComponent,
         notACourse: notACourse
     }
 }
@@ -411,20 +423,20 @@ var sumPointsInLevels = function () {
     }
 
     function sumPoints(arrayOfLevels) {
-        var done =0;
-        var todo =0;
-        var total =0;
+        var done = 0;
+        var todo = 0;
+        var total = 0;
         _(arrayOfLevels).forEach(function (n) {
             done += n.done;
             todo += n.todo;
             total += n.total;
         }).value();
 
-       return{
-           done:done,
-           todo:todo,
-           total:total
-       }
+        return {
+            done: done,
+            todo: todo,
+            total: total
+        }
     }
 
     var levelA = findDataOnLevel("A");

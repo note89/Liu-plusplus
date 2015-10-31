@@ -10,7 +10,7 @@
     padding-right: 6px;
     display: inline-block;
     width: 4px;
-    margin-right: 5px;
+    margin-right: 14px;
 }
 
 .results-table {
@@ -23,4 +23,8 @@
 
 .modal-body{
     text-align: left;
+}
+
+.btn-extra-lg {
+    font-size:30px !important;
 }
