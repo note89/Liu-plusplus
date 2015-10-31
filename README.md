@@ -1,45 +1,27 @@
 # studentportalen-extended
-Add missing functionality to studentportalen.liu.se
+Lägg till saknad funktionalitet till studentportalen
 
-## What is studentportalen-extended ?
-studentportalen-extended is javascript code that can be injected into 
-studentportalen to add extra functionally.
+## Vad är studentportalen-extended ?
+En Chrome/Firefox plugin som injecerar javascript kod 
+på studentportalens studieresultat sida för att lägga till
+ytterligare funktionalitet
 
-## What functionally does studentportalen-extended add ?
-studentportalen-extended does at this point only add functionality 
-for the studyresults page
+## Vad för funktionalitet har studentportalen-extended ?
+Studentportalen extended lägger i dagsläget till följande funktioner
+på studieresultat sidan. 
 
-* Average grades (weighted average and average)
-* Se what effects a raising your grades in certain courses will have
-* Highlighting
-* Wiki Advancement level  
-* See how many advancedpoints you have taken
+* Viktat och oviktat snitt
+* Testa och ändra dina betyg och se hur snittet förändras
+* Wiki för vilken nivå kursen har
+* Direktlänkar till stuidehandboken
+* Summering av hur många poäng du tagit på olika nivå
+* Få en raport på markerade kurser och resultat.
 
-### planned functionallty
-* Show what faculty the course belongs to
-* Show what area the course belongs to
-* Support for filfak grades (G,VG)
 
-## How to use studentportalen-extended
-
-#### Chrome
-1. Install [Tampermonkey](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo?hl=en)
-2. Go to [Greasy Fork](https://greasyfork.org/en/scripts/13401-studentportalen-extended) to install script
-3. Login to Studentportalen and navigate to the study results page
-4. Enjoy
-
-#### Firefox ( missing functionality)
-1. Install [Greasymonkey](https://addons.mozilla.org/en-us/firefox/addon/greasemonkey/)
-2. Go to [Greasy Fork](https://greasyfork.org/en/scripts/13401-studentportalen-extended) to install script
-3. Login to Studentportalen and navigate to the study results page
-4. Enjoy
-
-> recommend unclicking "Show test results/modules in list"
-
-#### Internet Explorer
-1. Uninstall Internet Explorer
-2. Install Chrome or Firefox
-
-#### Suggestions and feedback
-You can start a issue if you have an idea for some useful functionality,
-Its the tab with the ! 
+## Utvecklare ?
+1. clona repot
+2. npm install && bower install
+2. skriv chrome://extensions
+3. aktivera developermode
+4. ladda in repot
+5. rock and roll
