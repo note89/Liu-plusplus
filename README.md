@@ -21,7 +21,7 @@ på studieresultat sidan.
 ## Utvecklare ?
 1. clona repot
 2. npm install && bower install
-2. skriv chrome://extensions
+2. skriv chrome://extensions i chromes sökfält
 3. aktivera developermode
 4. ladda in repot
 5. rock and roll
