@@ -27,8 +27,8 @@ på studieresultat sidan.
 5. rock and roll
 
 
-### injicera javascript låter farligt
-pluginen tar bara effekt när du väl är inloggad 
+### Injicera javascript låter farligt
+Pluginen tar bara effekt när du väl är inloggad 
 och kan inte sno dina loginuppgifter. 
 Chrome och firefox tillåter inte plugin att läsa 
 av ditt lösenord.
