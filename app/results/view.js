@@ -23,6 +23,15 @@ $("#snitt").append("<p>Avklarade <input id='select-all-done' type='checkbox'></p
 $("#snitt").append("<p><button id='calculate-btn' type='button' class='btn btn-success'>Beräkna</button></p>");
 
 
+/*ToolTips for calculate-btn*/
+var toolTipTemplate = 'Du måste välja vilka kurser.\n';
+toolTipTemplate += 'som skall vara med i beräkningen\n';
+$('#calculate-btn').attr('data-toggle','tooltip');
+$('#calculate-btn').attr('title',toolTipTemplate);
+$('#calculate-btn').attr('data-placement','right');
+
+
+
 /* STATISTICS */
 $("#info-container").append("<div id='statistics-div' class='col-xs-4'></div>");
 $("#statistics-div").append("<h1>Statestik</h1>");
