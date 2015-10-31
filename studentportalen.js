@@ -154,7 +154,6 @@ function rowType(row) {
 
 $("#select-all-done").click(function (event) {
     event.stopPropagation();
-    console.log('herp derp');
 
     if (this.checked) {
         $('.course-checkbox').each(function () {
@@ -331,29 +330,47 @@ function calculateAverages() {
 
 })();
 
+var isCourseDone = function(courseRow){
+    if ($(courseRow).find(".is-finished")){
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 
 var sumPointsInLevels = function () {
 
     var selectedRows = $(".course-checkbox:checked").parent().parent();
 
-    function findAndSumLevel(level) {
-        var sum = 0;
+    function findDataOnLevel(level) {
+        var pointObj ={
+            done: 0,
+            todo: 0,
+            total: 0
+        };
         var selectedRows = $(".course-checkbox:checked").parent().parent();
         selectedRows.each(function (i, obj) {
             if ($(obj).find('.course-levels').val() === level) {
-                var hp = Number($(obj).find('.hp').text());
-                sum += hp;
+                if(isCourseDone(obj)){
+                    pointObj.done +=Number($(obj).find('.hp').text());
+                }
+                else{
+                    pointObj.todo +=Number($(obj).find('.hp').text());
+                }
+                pointObj.total +=Number($(obj).find('.hp').text());
             }
 
         });
 
-        return sum;
+        return pointObj.total;
     }
 
-    var levelA = findAndSumLevel("A");
-    var levelG1 = findAndSumLevel("G1");
-    var levelG2 = findAndSumLevel("G2");
-    var empty = findAndSumLevel("empty");
+    var levelA = findDataOnLevel("A");
+    var levelG1 = findDataOnLevel("G1");
+    var levelG2 = findDataOnLevel("G2");
+    var empty = findDataOnLevel("empty");
     return {
         G1: levelG1,
         G2: levelG2,

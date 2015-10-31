@@ -1,6 +1,8 @@
 var collectReportData = function () {
 
 
+
+
     return {
         points: {
             A: {
@@ -105,8 +107,6 @@ var fillModal = function () {
     var coursesInfo = function (reportData) {
         var courseString = "---Kurser---" + linebreak;
         var sortedCourses = _.sortByAll(reportData.courses, ['done', 'level']);
-        console.log(sortedCourses);
-
         var courseString = createHeading("Kommande Kurser");
         courseString += "Kod\tPoäng\tNivå"+linebreak;
         _(sortedCourses).forEach(function(course) {
@@ -122,9 +122,7 @@ var fillModal = function () {
             }
         }).value();
 
-        return courseString
-
-
+        return courseString;
     }
 
     /// coursesInfo(reportData);
