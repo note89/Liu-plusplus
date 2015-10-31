@@ -203,10 +203,21 @@ $('#grade-table').delegate('tr', 'click', function (e) {
 $("#calculate-btn").click(function (event) {
     var levelPoints = sumPointsInLevels();
     var grades = calculateAverages();
-    $('#sum-advanced-points').text(levelPoints.A);
-    $('#sum-other-points').text(levelPoints.G1 + levelPoints.G2 + levelPoints.empty);
-    $('#sum-abroad-n-test-points').text(findCreditsCourse() + findCreditsTests());
-    $('#sum-total-points').text(levelPoints.A + levelPoints.G1 + levelPoints.G2 + levelPoints.empty + findCreditsCourse() + findCreditsTests());
+
+    var prettyPrintLevel = function (level) {
+        return level.done + " + (" + level.todo + ") " + " = " + level.total
+    }
+    var prettyPrintLevelOthers = function (levelPoints) {
+        var done = levelPoints.G1.done + levelPoints.G2.done + levelPoints.empty.done;
+        var todo = levelPoints.G1.todo + levelPoints.G2.todo + levelPoints.empty.todo;
+        var total = levelPoints.G1.total + levelPoints.G2.total + levelPoints.empty.total;
+        return done + " + (" + todo + ") " + " = " + total
+    }
+    $('#modal-text').text(fillModal());
+    $('#sum-advanced-points').text(prettyPrintLevel(levelPoints.A));
+    $('#sum-other-points').text(prettyPrintLevelOthers(levelPoints));
+    $('#sum-abroad-n-test-points').text(levelPoints.credits.total);
+    $('#sum-total-points').text(levelPoints.sum.total);
     $('#average-grade').text(grades.average.toFixed(2));
     $('#weighted-average-grade').text(grades.WeightedAverage.toFixed(2));
 });
@@ -330,11 +341,11 @@ function calculateAverages() {
 
 })();
 
-var isCourseDone = function(courseRow){
-    if ($(courseRow).find(".is-finished")){
+var isCourseDone = function (courseRow) {
+    if ($(courseRow).find(".is-finished").length != 0) {
         return true;
     }
-    else{
+    else {
         return false;
     }
 }
@@ -345,7 +356,7 @@ var sumPointsInLevels = function () {
     var selectedRows = $(".course-checkbox:checked").parent().parent();
 
     function findDataOnLevel(level) {
-        var pointObj ={
+        var pointObj = {
             done: 0,
             todo: 0,
             total: 0
@@ -353,29 +364,75 @@ var sumPointsInLevels = function () {
         var selectedRows = $(".course-checkbox:checked").parent().parent();
         selectedRows.each(function (i, obj) {
             if ($(obj).find('.course-levels').val() === level) {
-                if(isCourseDone(obj)){
-                    pointObj.done +=Number($(obj).find('.hp').text());
+                if (isCourseDone(obj)) {
+                    pointObj.done += Number($(obj).find('.hp').text());
                 }
-                else{
-                    pointObj.todo +=Number($(obj).find('.hp').text());
+                else {
+                    pointObj.todo += Number($(obj).find('.hp').text());
                 }
-                pointObj.total +=Number($(obj).find('.hp').text());
+                pointObj.total += Number($(obj).find('.hp').text());
             }
 
         });
 
-        return pointObj.total;
+        return pointObj;
+    }
+
+    function findCredits() {
+        var findCreditsCourse = function () {
+            var credits = $(".tillgodolist ~ table tr").eq(4).children().eq(1).text();
+            return Number(credits);
+
+        }
+        var findCreditsTests = function () {
+            var credits = $(".tillgodolist ~ table tr").eq(5).children().eq(1).text();
+            return Number(credits);
+        }
+
+        var abroad = findCreditsCourse();
+        var tests = findCreditsTests();
+        var done = abroad + tests;
+
+        return {
+            abroad: abroad,
+            tests: tests,
+            done: done,
+            todo: 0,
+            total: done
+        }
+    }
+
+    function sumPoints(arrayOfLevels) {
+        var done =0;
+        var todo =0;
+        var total =0;
+        _(arrayOfLevels).forEach(function (n) {
+            done += n.done;
+            todo += n.todo;
+            total += n.total;
+        }).value();
+
+       return{
+           done:done,
+           todo:todo,
+           total:total
+       }
     }
 
     var levelA = findDataOnLevel("A");
     var levelG1 = findDataOnLevel("G1");
     var levelG2 = findDataOnLevel("G2");
     var empty = findDataOnLevel("empty");
+    var credits = findCredits();
+    var sum = sumPoints([levelA, levelG1, levelG2, empty, credits]);
+
     return {
         G1: levelG1,
         G2: levelG2,
         A: levelA,
-        empty: empty
+        credits: credits,
+        empty: empty,
+        sum: sum
     }
 };
 

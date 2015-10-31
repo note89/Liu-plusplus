@@ -24,7 +24,7 @@ $("#snitt").append("<p><button id='calculate-btn' type='button' class='btn btn-s
 
 
 /* STATISTICS */
-$("#info-container").append("<div id='statistics-div' class='col-xs-3'></div>");
+$("#info-container").append("<div id='statistics-div' class='col-xs-4'></div>");
 $("#statistics-div").append("<h1>Statestik</h1>");
 $("#statistics-div").append("<h3>Avancerade hp: <span id='sum-advanced-points' class='number-value'></span></h3>");
 $("#statistics-div").append("<h3 style='margin-top:5px;'>Övriga hp: <span class='number-value'id='sum-other-points'></span></h3>");

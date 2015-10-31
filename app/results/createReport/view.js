@@ -1,31 +1,7 @@
 var collectReportData = function () {
 
-
-
-
     return {
-        points: {
-            A: {
-                done: 23,
-                todo: 12,
-                total: 44
-            },
-            G1G2: {
-                done: 23,
-                todo: 12,
-                total: 44
-            },
-            credits: {
-                abroad: 30,
-                test: 0,
-                total: 30
-            },
-            all: {
-                done: 23,
-                todo: 12,
-                total: 44
-            }
-        },
+        points: sumPointsInLevels(),
         grades: {
             average: 3.7,
             weighedAverage: 3.4
@@ -86,6 +62,8 @@ var fillModal = function () {
     var linebreak = "\n";
     var delimiter = "--------------------"+linebreak;
 
+    console.log(reportData);
+
     var createHeading = function (heading) {
         var headingString = delimiter
         headingString += heading+ linebreak;
@@ -93,14 +71,25 @@ var fillModal = function () {
         return headingString;
     }
 
+    var prettyPrintLevel = function (level) {
+        return level.done + " + (" + level.todo + ") " + " = " + level.total +"\n"
+    }
+
+    var prettyPrintLevelOthers = function (levelPoints) {
+        var done = levelPoints.G1.done + levelPoints.G2.done + levelPoints.empty.done;
+        var todo = levelPoints.G1.todo + levelPoints.G2.todo + levelPoints.empty.todo;
+        var total = levelPoints.G1.total + levelPoints.G2.total + levelPoints.empty.total;
+        return done + " + (" + todo + ") " + " = " + total+"\n"
+    }
+
 
     var addGeneralInfo = function (reportData) {
         var generalString = createHeading("Poäng (kommande)");
-        generalString += "A: " + reportData.points.A.done + " + (" + reportData.points.A.todo + ") = " + reportData.points.A.total + "\n";
-        generalString += "G1G2: " + reportData.points.G1G2.done + " + (" + reportData.points.G1G2.todo + ") = " + reportData.points.G1G2.total + "\n";
-        generalString += "Credits: " + reportData.points.credits.abroad + " + (" + reportData.points.credits.test + ") =" +
+        generalString += "A: " + prettyPrintLevel(reportData.points.A);
+        generalString += "G1G2: " + prettyPrintLevelOthers(reportData.points);
+        generalString += "Credits: " + reportData.points.credits.abroad + " + (" + reportData.points.credits.tests + ") =" +
             " " + reportData.points.credits.total + "\n";
-        generalString += "Totalt: " + reportData.points.all.done + " + (" + reportData.points.all.todo + ") = " + reportData.points.all.total + "\n";
+        generalString += "Totalt: " + reportData.points.sum.done + " + (" + reportData.points.sum.todo + ") = " + reportData.points.sum.total + "\n";
         return generalString;
     }
 
@@ -128,7 +117,7 @@ var fillModal = function () {
     /// coursesInfo(reportData);
 
 
-    return pre + addGeneralInfo(reportData) + coursesInfo(reportData) + preEnd;
+    return addGeneralInfo(reportData) + coursesInfo(reportData)
 
 
 };
@@ -152,7 +141,7 @@ modal += "    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" ari
 modal += "<h4 class=\"modal-title\" id=\"myModalLabel\">Raport<\/h4>";
 modal += "<\/div>";
 modal += "<div class=\"modal-body\">";
-modal += fillModal();
+modal += "<pre id='modal-text'>Välj vilka kurser du vill inkludera först</pre>";
 modal += "<\/div>";
 modal += "<div class=\"modal-footer\">";
 modal += "    <button type=\"button\" class=\"btn btn-default\" data-dismiss=\"modal\">Close<\/button>";
