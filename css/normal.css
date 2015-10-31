@@ -18,3 +18,7 @@ body > table:nth-child(4) > tbody {
 body > table:nth-child(5) > tbody > tr > td:nth-child(1) > table > tbody > tr:nth-child(4) {
     font-size: 23px;
 }
+
+.btn-extra-lg {
+    font-size:30px !important;
+}

@@ -28,7 +28,10 @@
         "node_modules/jquery/dist/jquery.js",
         "node_modules/bootstrap/dist/js/bootstrap.js",
         "node_modules/firebase/lib/firebase-web.js",
+        "bower_components/lodash/lodash.min.js",
         "app/results/view.js",
+        "app/results/createReport/view.js",
+        "app/results/createReport/controller.js",
         "studentportalen.js"
 
       ]

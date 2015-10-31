@@ -6,7 +6,8 @@
   "dependencies": {
     "bootstrap": "^3.3.5",
     "firebase": "^2.3.1",
-    "jquery": "^2.1.4"
+    "jquery": "^2.1.4",
+    "lodash": "^3.10.1"
   },
   "devDependencies": {},
   "scripts": {

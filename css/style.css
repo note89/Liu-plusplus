@@ -20,3 +20,7 @@
 .tooltip-inner {
     white-space:pre-wrap;
 }
+
+.modal-body{
+    text-align: left;
+}

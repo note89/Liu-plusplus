@@ -1,0 +1,24 @@
+{
+  "name": "studentportalen-extended",
+  "description": "Add missing functionallity to studentportalen",
+  "main": "studentportalen.js",
+  "authors": [
+    "Nils Eriksson"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "studentportalen"
+  ],
+  "homepage": "https://github.com/Niler851/studentportalen-extended",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "lodash": "~3.10.1"
+  }
+}
