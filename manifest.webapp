@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "studentportalen-extended",
   "description": "This extension brings new functionality to studentportalen",
-  "version": "1.5",
+  "version": "1.4.2",
   "icons": { "16": "favicon16.png",
     "48": "favicon48.png",
     "128": "favicon128.png" },
@@ -12,7 +12,9 @@
     "default_title": "Click here!"
   },
   "web_accessible_resources": [
-    "node_modules/bootstrap/dist/css/bootstrap.min.css"
+    "node_modules/bootstrap/dist/css/bootstrap.min.css",
+    "bower_components/font-awesome/fonts/*",
+    "templates/*.html"
   ],
   "content_scripts": [
     {
@@ -22,7 +24,9 @@
       "css": [
         "css/normal.css",
         "node_modules/bootstrap/dist/css/bootstrap.min.css",
+        "bower_components/font-awesome/css/font-awesome.min.css",
         "css/style.css"
+
       ],
       "js": [
         "node_modules/jquery/dist/jquery.js",

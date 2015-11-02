@@ -88,14 +88,34 @@ toolTipTemplate += 'Hjälp till och hålla dem aktuella\n';
 
             if(row.courseComponent){
                 $(this).prepend("<td></td>");
-            }else{
+                $(this).addClass('non-course-row');
+
+            }
+            else{
                 $(this).prepend("<td><input type='checkbox' class='course-checkbox'></td>");
+                $(this).children().eq(1).wrapInner("<a href='" + studiehandbokenBase + $(this).children().eq(1).text() + "'></a>");
+
+
+                $(this).addClass('course-row');
+                if ($(this).children().eq(1).text().indexOf("*") > 0) {
+                    $(this).addClass("is-finished");
+                }else {
+                    $(this).addClass("is-not-finished");
+                }
+                $(this).attr('id', $(this).children().eq(1).text());
+                $(this).append(levelBox);
             }
 
 
             $(this).children().eq(4).attr('nowrap', 'nowrap');
             $(this).children().eq(4).wrapInner("<span class='grade'></span>");
-            $(this).children().eq(4).append(" <input type='button' value='+' class='plus' /><input type='button' value='-' class='minus' />");
+            if(row.courseComponent){
+                $(this).children().eq(4).append(" <span class='input-holder'></span>");
+
+            }
+            else{
+                $(this).children().eq(4).append(" <input type='button' value='+' class='plus' /><input type='button' value='-' class='minus' />");
+            }
 
 
             $(this).children().eq(1).addClass("course-code");
@@ -106,15 +126,13 @@ toolTipTemplate += 'Hjälp till och hålla dem aktuella\n';
             $(this).children().eq(6).addClass("course-level");
 
             //is course finished ?
-            if ($(this).children().eq(1).text().indexOf("*") > 0) {
-                $(this).children().eq(1).addClass("is-finished");
-            }
+
             //
 
-            $(this).children().eq(1).wrapInner("<a href='" + studiehandbokenBase + $(this).children().eq(1).text() + "'></a>");
-            $(this).addClass('course-row');
-            $(this).attr('id', $(this).children().eq(1).text());
-            $(this).append(levelBox);
+
+
+
+
         }
         if ($(this).children().eq(0).text() == "Kurskod") {
             $(this).prepend("<th>Vald</th>");
@@ -126,8 +144,8 @@ toolTipTemplate += 'Hjälp till och hålla dem aktuella\n';
 
 
             $(this).children().eq(3).attr('style', 'padding-right:23px');
-            $(this).append('<th data-toggle="tooltip" title="' + toolTipTemplate + '" class="th-level">Nivå' +
-                '<span class="text-muted">?</span></th>');
+            $(this).append('<th data-toggle="tooltip" title="' + toolTipTemplate + '" class="th-level"><div style="white-space: nowrap;">Nivå' +
+                '<span class="custom-icon smaller-icon">?</span></div></th>');
         }
     });
 })();
@@ -138,6 +156,7 @@ function rowType(row) {
     var hasNumbericGrade = !isNaN(Number($(row).children().eq(3).text()));
     var hasBoldText = $(row).children().eq(0).find("b").length != 0;
 
+    var courseRow = false
     var numericGrade = false;
     var letterGrade = false;
     var notACourse = false;
@@ -158,6 +177,7 @@ function rowType(row) {
     }
 
     return {
+        courseRow: courseRow,
         numericGrade: numericGrade,
         letterGrade: letterGrade,
         courseComponent: courseComponent,
@@ -177,7 +197,35 @@ $("#select-all-done").click(function (event) {
         $('.course-checkbox').each(function () {
 
             var row = $(this).closest("tr");
-            if (row.find('.is-finished').length != 0) {
+            if (row.hasClass('is-finished')) {
+                this.checked = true;
+                row.addClass('selected');
+            }
+
+        });
+    }
+    else {
+        $('.course-checkbox').each(function () {
+            this.checked = false;
+            $(this).closest("tr").removeClass('selected');
+        });
+    }
+
+});
+
+/*
+ when we click 'select-all-todo' all todo courses
+ should be selected,
+ */
+
+$("#select-all-todo").click(function (event) {
+    event.stopPropagation();
+
+    if (this.checked) {
+        $('.course-checkbox').each(function () {
+
+            var row = $(this).closest("tr");
+            if (row.hasClass('is-not-finished')) {
                 this.checked = true;
                 row.addClass('selected');
             }
@@ -310,8 +358,10 @@ function calculateAverages() {
         var gradeElement = $(this).prev(".grade");
         var grade = Number(gradeElement.text());
         // If is not undefined
+        selectRow(gradeElement.closest('tr'));
         if (!isNaN(grade)) {
             // Increment
+
             $(gradeElement).text(boundValue(grade + 1));
         } else {
             // Otherwise put a 0 there
@@ -324,9 +374,17 @@ function calculateAverages() {
         var gradeElement = $(this).prevAll(".grade");
         var grade = Number(gradeElement.text());
         // If is not undefined
+
+
         if (!isNaN(grade)) {
             // Increment
-            $(gradeElement).text(boundValue(grade - 1));
+            if((grade -1) <=2){
+                $(gradeElement).text('');
+                deselectRow(gradeElement.closest('tr'));
+            }else{
+                $(gradeElement).text(boundValue(grade - 1));
+            }
+
         } else {
             // Otherwise put a 0 there
             $(gradeElement).text(0);
@@ -340,6 +398,20 @@ function calculateAverages() {
     }
 
 })();
+
+function deselectRow(row){
+
+    if ($(row).hasClass('selected')) {
+        $(row).find('.course-checkbox').attr('checked',false);
+        $(row).removeClass('selected');
+    }
+}
+function selectRow(row){
+    if (!$(row).hasClass('selected')) {
+        $(row).find('.course-checkbox').click();
+        //$(row).addClass('selected');
+    }
+}
 
 (function selectLevel() {
     $('select').click(function (e) {
@@ -362,7 +434,7 @@ function calculateAverages() {
 })();
 
 var isCourseDone = function (courseRow) {
-    if ($(courseRow).find(".is-finished").length != 0) {
+    if ($(courseRow).hasClass("is-finished")) {
         return true;
     }
     else {

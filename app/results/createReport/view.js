@@ -23,7 +23,7 @@ var getCourseArray = function () {
         var coursePoints = $(course).find('.hp').text();
         var courseGrade = $(course).find('.course-grade').text();
         var courseLevel = $(course).find('.course-levels').val();
-        var couseDone = $(course).find('.is-finished').length > 0;
+        var couseDone = $(course).hasClass('is-finished');
 
         var course = {
             code: courseCode,
@@ -120,11 +120,15 @@ var fillModal = function () {
 
 /* Button trigger modal */
 var createReportBtn = "";
-createReportBtn += "<button type=\"button\" id='create-report' class=\"btn btn-primary btn-lg\" data-toggle=\"modal\"" +
+createReportBtn += '<div class="btn-group" role="group"><button type=\"button\" id="create-report" class=\"btn' +
+    ' btn-primary' +
+" btn-lg\"" +
+    " data-toggle=\"modal\"" +
     " data-target=\"#myModal\">";
 createReportBtn += "Skapa rapport";
-createReportBtn += "<\/button>";
-createReportBtn += "";
+createReportBtn += '</button>'
+createReportBtn += '<button type="button" id="report-info-btn" class="btn btn-lg btn-primary">?</button>';
+createReportBtn += "</div>";
 
 
 /* Modal */
@@ -151,6 +155,16 @@ modal += "<\/div>";
 $("#info-container").append("<div id='report-div' class='col-xs-3 text-center'></div>");
 $("#report-div").append(createReportBtn);
 $("#report-div").append(modal);
+
+///*ToolTips for calculate-btn*/
+var tooltipReport = 'Sammanställning av \n';
+tooltipReport += 'statestisk för markerade kurser\n';
+$('#report-info-btn').attr('data-toggle','tooltip');
+$('#report-info-btn').attr('title',tooltipReport);
+$('#report-info-btn').attr('data-placement','bottom');
+
+
+
 
 
 $('#create-report').click(function (event) {
