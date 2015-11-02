@@ -8,10 +8,25 @@ var getAllCourseData = function () {
         $('.course-row').each(function (i, row) {
             var rowID = $(row).attr('id').replace('*', '');
             if (rowID in courses) {
-                var level = courses[rowID].level
+                if (courses[rowID].level)
+
+
+                    var level = typeof courses[rowID].level !== 'undefined' ? courses[rowID].level : 'empty'
+                var lastEditDate;
+                var lastEditAutor;
+                if (typeof courses[rowID].lastEdit !== 'undefined') {
+                    lastEditDate = typeof courses[rowID].lastEdit.date !== 'undefined' ? courses[rowID].lastEdit.date : ''
+                    lastEditAuthor = typeof courses[rowID].lastEdit.author !== 'undefined' ? courses[rowID].lastEdit.author : ''
+                }
+
                 var select = $(row).find('select');
                 selectAlternative(level, select);
                 // $(row).find('.'+level).attr('selected',true);
+                var tooltipLastUpdate = 'Senast updateringen\n';
+                tooltipLastUpdate += lastEditAuthor + '\n';
+                tooltipLastUpdate += timeStampToString(lastEditDate);
+                $(row).find('.course-levels').attr('title', tooltipLastUpdate).tooltip('fixTitle');
+
 
             }
         });
@@ -23,9 +38,33 @@ var getAllCourseData = function () {
 }();
 
 
-var updateCourseLevel = function (course, level) {
+var timeStampToString = function (timestamp) {
+    var date = new Date(timestamp);
+
+    var year = date.getFullYear();
+    var month = date.getMonth();
+    var dayOfMonth = date.getDate();
+
+    var hours = date.getHours();
+    var minutes = "0" + date.getMinutes();
+    var seconds = "0" + date.getSeconds();
+
+// Will display time in 10:30:23 format
+    var formattedTime = year + '/' + month + '/' + dayOfMonth +' ';
+    formattedTime += hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+    return formattedTime;
+}
+
+var updateCourseLevel = function (course, level, author) {
     var fireCourses = myFirebaseRef.child("courses");
-    fireCourses.child(course).set({"level": level});
+
+    fireCourses.child(course).set({
+        "level": level,
+        "lastEdit": {
+            "author": author,
+            "date": Firebase.ServerValue.TIMESTAMP
+        }
+    });
 }
 
 /* END OF FIREBASE */
@@ -59,7 +98,8 @@ $("table.resultlist > tbody").attr('id', 'grade-table');
 
 var levelBox = '\
 <td>\
-<select class="course-levels">\
+<select class="course-levels" data-toggle="tooltip"  data-placement="right" \
++>\
 <option class="G1" value="G1">G1</option>\
 <option class="G2" value="G2">G2</option>\
 <option class="A" value="A">A</option>\
@@ -86,12 +126,12 @@ toolTipTemplate += 'Hjälp till och hålla dem aktuella\n';
         var row = rowType(this);
         if (row.numericGrade || row.letterGrade) {
 
-            if(row.courseComponent){
+            if (row.courseComponent) {
                 $(this).prepend("<td></td>");
                 $(this).addClass('non-course-row');
 
             }
-            else{
+            else {
                 $(this).prepend("<td><input type='checkbox' class='course-checkbox'></td>");
                 $(this).children().eq(1).wrapInner("<a href='" + studiehandbokenBase + $(this).children().eq(1).text() + "'></a>");
 
@@ -99,21 +139,22 @@ toolTipTemplate += 'Hjälp till och hålla dem aktuella\n';
                 $(this).addClass('course-row');
                 if ($(this).children().eq(1).text().indexOf("*") > 0) {
                     $(this).addClass("is-finished");
-                }else {
+                } else {
                     $(this).addClass("is-not-finished");
                 }
                 $(this).attr('id', $(this).children().eq(1).text());
                 $(this).append(levelBox);
+
             }
 
 
             $(this).children().eq(4).attr('nowrap', 'nowrap');
             $(this).children().eq(4).wrapInner("<span class='grade'></span>");
-            if(row.courseComponent){
+            if (row.courseComponent) {
                 $(this).children().eq(4).append(" <span class='input-holder'></span>");
 
             }
-            else{
+            else {
                 $(this).children().eq(4).append(" <input type='button' value='+' class='plus' /><input type='button' value='-' class='minus' />");
             }
 
@@ -130,9 +171,6 @@ toolTipTemplate += 'Hjälp till och hålla dem aktuella\n';
             //
 
 
-
-
-
         }
         if ($(this).children().eq(0).text() == "Kurskod") {
             $(this).prepend("<th>Vald</th>");
@@ -145,7 +183,7 @@ toolTipTemplate += 'Hjälp till och hålla dem aktuella\n';
 
             $(this).children().eq(3).attr('style', 'padding-right:23px');
             $(this).append('<th data-toggle="tooltip" title="' + toolTipTemplate + '" class="th-level"><div style="white-space: nowrap;">Nivå' +
-                '<span class="custom-icon smaller-icon">?</span></div></th>');
+                '<span class="custom-icon smaller-icon">i</span></div></th>');
         }
     });
 })();
@@ -162,7 +200,7 @@ function rowType(row) {
     var notACourse = false;
     var courseComponent = false;
 
-    if(!hasBoldText){
+    if (!hasBoldText) {
         courseComponent = true;
     }
 
@@ -378,10 +416,10 @@ function calculateAverages() {
 
         if (!isNaN(grade)) {
             // Increment
-            if((grade -1) <=2){
+            if ((grade - 1) <= 2) {
                 $(gradeElement).text('');
                 deselectRow(gradeElement.closest('tr'));
-            }else{
+            } else {
                 $(gradeElement).text(boundValue(grade - 1));
             }
 
@@ -399,14 +437,14 @@ function calculateAverages() {
 
 })();
 
-function deselectRow(row){
+function deselectRow(row) {
 
     if ($(row).hasClass('selected')) {
-        $(row).find('.course-checkbox').attr('checked',false);
+        $(row).find('.course-checkbox').attr('checked', false);
         $(row).removeClass('selected');
     }
 }
-function selectRow(row){
+function selectRow(row) {
     if (!$(row).hasClass('selected')) {
         $(row).find('.course-checkbox').click();
         //$(row).addClass('selected');
@@ -428,10 +466,24 @@ function selectRow(row){
         selectAlternative(level, select);
 
         var courseID = $(this).closest('tr').attr('id').replace('*', '');
-        updateCourseLevel(courseID, level);
+        var date = new Date();
+        var author = getAuthor();
+
+        updateCourseLevel(courseID, level, author);
+        $(select).tooltip('fixTitle').tooltip('show');
+
     });
 
 })();
+
+function getAuthor(){
+    var stringThatContainsName = $('body > table:nth-child(4) > tbody > tr:nth-child(1) > td:nth-child(1) > a >' +
+        ' b:nth-child(1)').text();
+    var indexOfAtsign = stringThatContainsName.indexOf('@');
+    var name = stringThatContainsName.substr(0,indexOfAtsign);
+
+    return name
+}
 
 var isCourseDone = function (courseRow) {
     if ($(courseRow).hasClass("is-finished")) {
