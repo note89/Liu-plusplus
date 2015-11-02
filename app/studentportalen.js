@@ -99,7 +99,7 @@ $("table.resultlist").addClass('table-condensed');
 
 var levelBox = '\
 <td>\
-<select class="course-levels" data-toggle="tooltip"  data-placement="right" \
+<select class="course-levels" data-toggle="tooltip"  data-placement="left" \
 +>\
 <option class="G1" value="G1">G1</option>\
 <option class="G2" value="G2">G2</option>\
@@ -117,8 +117,13 @@ var levelBox = '\
  of rasing them
  **/
 
-var toolTipTemplate = 'Ändringar synkas mellan alla användare.\n';
-toolTipTemplate += 'Hjälp till och hålla dem aktuella\n';
+var tooltipLevel = 'Ändringar synkas mellan alla användare.\n';
+tooltipLevel += 'Hjälp till och hålla dem aktuella\n';
+
+var tooltipGrade = 'Här kan du ändra dina betyg \n';
+tooltipGrade += 'för och se hur värt det är och plussa';
+
+
 
 (function expandTableOfGrades() {
     $("#grade-table").children().each(function () {
@@ -134,7 +139,7 @@ toolTipTemplate += 'Hjälp till och hålla dem aktuella\n';
             }
             else {
                 $(this).prepend("<td><input type='checkbox' class='course-checkbox'></td>");
-                $(this).children().eq(1).wrapInner("<a href='" + studiehandbokenBase + $(this).children().eq(1).text() + "'></a>");
+                $(this).children().eq(1).wrapInner("<a target='_blank' href='" + studiehandbokenBase + $(this).children().eq(1).text() + "'></a>");
 
 
                 $(this).addClass('course-row');
@@ -151,7 +156,7 @@ toolTipTemplate += 'Hjälp till och hålla dem aktuella\n';
 
             $(this).children().eq(4).attr('nowrap', 'nowrap');
             $(this).children().eq(4).wrapInner("<span class='grade'></span>");
-            if (row.courseComponent) {
+            if (row.courseComponent || row.letterGrade) {
                 $(this).children().eq(4).append(" <span class='input-holder'></span>");
 
             }
@@ -178,11 +183,20 @@ toolTipTemplate += 'Hjälp till och hålla dem aktuella\n';
             //HP padding
             if ($(this).children().eq(4).text() != "Betyg") {
                 $(this).append('<th>Betyg</th>');
+                //$('#grade-header').attr('data-toggle','tooltip');
+                //$('#grade-header').attr('title',tooltipGrade);
                 $(this).append('<th></th>');
             }
+           //SET GRADE TOOL TIP
 
+            $(this).children().eq(4).append('<span class="custom-icon smaller-icon grade-header">i</span></div>');
+            $('.grade-header').attr('data-toggle','tooltip');
+            $('.grade-header').attr('title',tooltipGrade);
+            $('.grade-header').attr('data-placement','top');
 
-            $(this).append('<th data-toggle="tooltip" title="' + toolTipTemplate + '" class="th-level"><div style="white-space: nowrap;">Nivå' +
+            $(this).append('<th data-toggle="tooltip" title="' + tooltipLevel + '" class="th-level"><div' +
+                ' style="white-space:' +
+                ' nowrap;">Nivå' +
                 '<span class="custom-icon smaller-icon">i</span></div></th>');
         }
     });

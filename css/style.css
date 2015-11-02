@@ -97,3 +97,12 @@
 #calculate-btn{
     margin-bottom: 20px;
 }
+
+.btn-group {
+    display: flex;
+}
+
+.table {
+    max-width: 900px;
+    word-wrap: break-word;
+}

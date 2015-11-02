@@ -1,0 +1,28 @@
+html{
+    background-color: #FAFAFA;
+}
+
+.main-div{
+    text-align: center;
+}
+.mail{
+    font-size: 9px;
+    margin-top: 2px;
+}
+.pink{
+color:pink; background-color:transparent; text-decoration:none
+}
+
+a {
+    color: inherit; /* blue colors for links too */
+    text-decoration: inherit; /* no underline */
+}
+
+footer a:visited {color:pink; background-color:transparent; text-decoration:none}
+footer a:hover   {color: #ff4d4c; background-color:transparent; text-decoration:underline}
+
+
+.header{
+    font-weight: bold;
+    text-shadow: 0px 1px 2px #AAA
+}
