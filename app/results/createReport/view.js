@@ -127,7 +127,7 @@ createReportBtn += '<div class="btn-group" role="group"><button type=\"button\" 
     " data-target=\"#myModal\">";
 createReportBtn += "Skapa rapport";
 createReportBtn += '</button>'
-createReportBtn += '<button type="button" id="report-info-btn" class="btn btn-lg btn-primary">?</button>';
+createReportBtn += '<button type="button" id="report-info-btn" class="btn btn-lg btn-primary">i</button>';
 createReportBtn += "</div>";
 
 
@@ -157,8 +157,8 @@ $("#report-div").append(createReportBtn);
 $("#report-div").append(modal);
 
 ///*ToolTips for calculate-btn*/
-var tooltipReport = 'Sammanställning av \n';
-tooltipReport += 'statestisk för markerade kurser\n';
+var tooltipReport = 'Sammanställning av statestisk\n';
+tooltipReport += ' för markerade kurser\n';
 $('#report-info-btn').attr('data-toggle','tooltip');
 $('#report-info-btn').attr('title',tooltipReport);
 $('#report-info-btn').attr('data-placement','bottom');
