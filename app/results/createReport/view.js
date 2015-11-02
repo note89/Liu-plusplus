@@ -157,7 +157,7 @@ $("#report-div").append(createReportBtn);
 $("#report-div").append(modal);
 
 ///*ToolTips for calculate-btn*/
-var tooltipReport = 'Sammanställning av statestisk\n';
+var tooltipReport = 'Sammanställning av statistik\n';
 tooltipReport += ' för markerade kurser\n';
 $('#report-info-btn').attr('data-toggle','tooltip');
 $('#report-info-btn').attr('title',tooltipReport);

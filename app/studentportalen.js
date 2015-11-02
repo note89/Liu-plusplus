@@ -117,8 +117,7 @@ var levelBox = '\
  of rasing them
  **/
 
-var toolTipTemplate = 'Detta fält är en WIKI.\n';
-toolTipTemplate += 'Ändringar syncas mellan alla användare.\n';
+var toolTipTemplate = 'Ändringar synkas mellan alla användare.\n';
 toolTipTemplate += 'Hjälp till och hålla dem aktuella\n';
 
 (function expandTableOfGrades() {
@@ -400,9 +399,6 @@ function calculateAverages() {
             // Increment
 
             $(gradeElement).text(boundValue(grade + 1));
-        } else {
-            // Otherwise put a 0 there
-            $(gradeElement).text(0);
         }
     });
 
@@ -422,9 +418,6 @@ function calculateAverages() {
                 $(gradeElement).text(boundValue(grade - 1));
             }
 
-        } else {
-            // Otherwise put a 0 there
-            $(gradeElement).text(0);
         }
     });
 

@@ -56,16 +56,16 @@ $('#calculate-btn').attr('data-placement','right');
 
 /* STATISTICS */
 $("#info-container").append("<div id='statistics-div' class='col-xs-4'></div>");
-$("#statistics-div").append('<h1>Statestik<span id="statistics-info" class="custom-icon">i</span></h1>');
+$("#statistics-div").append('<h1>Statistik<span id="statistics-info" class="custom-icon">i</span></h1>');
 $("#statistics-div").append("<h3>Avancerade hp: <span id='sum-advanced-points' class='number-value'></span></h3>");
-$("#statistics-div").append("<h3 style='margin-top:5px;'>Övriga hp: <span class='number-value'id='sum-other-points'></span></h3>");
-$("#statistics-div").append("<h3 style='margin-top:5px;'>Utland/Tests hp: <span class='number-value' id='sum-abroad-n-test-points'></span></h3>");
+$("#statistics-div").append("<h3 style='margin-top:5px;'>Grundläggande hp: <span class='number-value'id='sum-other-points'></span></h3>");
+$("#statistics-div").append("<h3 style='margin-top:5px;'>Utlands hp: <span class='number-value' id='sum-abroad-n-test-points'></span></h3>");
 $("#statistics-div").append("<h3 style='margin-top:5px;'>Totalt hp: <span class='number-value'" +
     " id='sum-total-points'></span></h3>");
 
 
 /*ToolTips for calculate-btn*/
-var tooltipStatistics = '( ) Visar poäng för \n';
+var tooltipStatistics = 'Parantes visar poäng för \n';
 tooltipStatistics += 'oavslutade kurser\n';
 $('#statistics-info').attr('data-toggle','tooltip');
 $('#statistics-info').attr('title',tooltipStatistics);
