@@ -91,7 +91,8 @@ $(document).ready(function () {
  Give the table of courses a id
  */
 $("table.resultlist > tbody").attr('id', 'grade-table');
-
+$("table.resultlist").addClass('table');
+$("table.resultlist").addClass('table-condensed');
 
 //var createLevelBox = function(selectedLevel){
 
@@ -129,6 +130,7 @@ toolTipTemplate += 'Hjälp till och hålla dem aktuella\n';
             if (row.courseComponent) {
                 $(this).prepend("<td></td>");
                 $(this).addClass('non-course-row');
+                $(this).append('<td></td>');
 
             }
             else {
@@ -181,7 +183,6 @@ toolTipTemplate += 'Hjälp till och hålla dem aktuella\n';
             }
 
 
-            $(this).children().eq(3).attr('style', 'padding-right:23px');
             $(this).append('<th data-toggle="tooltip" title="' + toolTipTemplate + '" class="th-level"><div style="white-space: nowrap;">Nivå' +
                 '<span class="custom-icon smaller-icon">i</span></div></th>');
         }
@@ -332,8 +333,6 @@ $("#calculate-btn").click(function (event) {
  Add hover highlighting for course-rows
 
  */
-document.styleSheets[0].insertRule('.course-row:hover { background-color: #FF9; outline: thin solid black;}', 0);
-document.styleSheets[0].insertRule('.selected { background-color: #FFC; outline: thin solid black;}', 0);
 
 
 /// Controllers /////

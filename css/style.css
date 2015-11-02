@@ -2,9 +2,7 @@
     color:black;
 }
 
-.th-level {
-    color:orange;
-}
+
 
 .grade {
     padding-right: 6px;
@@ -64,4 +62,38 @@
 
 .level-header{
     white-space: nowrap !important;
+}
+
+.plus{
+    background-color:rgba(0,170,0,0.3);
+    font-weight: bold;
+    border: 1px;
+    border-radius: 10%;
+    color: #111;
+}
+
+.minus{
+    background-color:rgba(250,0,0,0.4);
+    font-weight: bold;
+    width: 20px;
+    margin-left: 3px;
+    border: 1px;
+    border-radius: 10%;
+    color: #111;
+}
+
+.course-levels{
+    border-radius: 5%;
+    /*background-color: rgb(112, 161, 183);*/
+    /*border-color: black;*/
+    /*color: white;*/
+}
+
+.selected { background-color: #fcffe4; outline: thin solid black;}
+.course-row:hover {
+    background-color:#F5F5F5;
+}
+
+#calculate-btn{
+    margin-bottom: 20px;
 }
