@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "studentportalen-extended",
   "description": "This extension brings new functionality to studentportalen",
-  "version": "1.6.4",
+  "version": "1.6.5",
   "icons": { "16": "favicon16.png",
     "48": "favicon48.png",
     "128": "favicon128.png" },
@@ -17,7 +17,8 @@
   "content_scripts": [
     {
       "matches": [
-        "https://www3.student.liu.se/portal/studieresultat/*"
+        "https://www3.student.liu.se/portal/studieresultat/*",
+        "https://www3.student.liu.se/portal/login"
       ],
       "css": [
         "css/normal.css",

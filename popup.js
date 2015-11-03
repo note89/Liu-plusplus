@@ -1,9 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
-  var checkPageButton = document.getElementById('checkPage');
-  checkPageButton.addEventListener('click', function() {
-    console.log('click');
+  var suggestionsBtn = document.getElementById('suggestionsBtn');
+  var studentportalBtn = document.getElementById('studentportalBtn');
+  suggestionsBtn.addEventListener('click', function() {
     chrome.tabs.getSelected(null, function(tab) {
       chrome.tabs.create({ url: "https://github.com/Niler851/studentportalen-extended/issues" });
+    });
+  }, false);
+
+  studentportalBtn.addEventListener('click', function() {
+    chrome.tabs.getSelected(null, function(tab) {
+      chrome.tabs.create({ url: "https://www3.student.liu.se/portal/studieresultat/resultat?show_oavslut=oavslut&show_splitt=splitt&post_button_select_filter=Spara" });
     });
   }, false);
 }, false);

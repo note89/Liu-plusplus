@@ -19,6 +19,7 @@
     "tests"
   ],
   "dependencies": {
-    "lodash": "~3.10.1"
+    "lodash": "~3.10.1",
+    "font-awesome": "~4.4.0"
   }
 }
