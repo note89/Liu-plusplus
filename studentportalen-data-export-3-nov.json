@@ -1,0 +1,396 @@
+{
+  "courses" : {
+    "730G70" : {
+      "lastEdit" : {
+        "author" : " Nils Eriksson ",
+        "date" : 1446452541929
+      },
+      "level" : "A"
+    },
+    "TAMS65" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497102532
+      },
+      "level" : "G1"
+    },
+    "TAMS79" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497087247
+      },
+      "level" : "G1"
+    },
+    "TAOP14" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497079905
+      },
+      "level" : "G1"
+    },
+    "TAOP18" : {
+      "lastEdit" : {
+        "author" : " Tobias Björch ",
+        "date" : 1446492443303
+      },
+      "level" : "A"
+    },
+    "TAOP37" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497102510
+      },
+      "level" : "G1"
+    },
+    "TATA31" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497078100
+      },
+      "level" : "G1"
+    },
+    "TATA41" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497058643
+      },
+      "level" : "G1"
+    },
+    "TATA42" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497060267
+      },
+      "level" : "G1"
+    },
+    "TATA43" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497072499
+      },
+      "level" : "G1"
+    },
+    "TATA52" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497102530
+      },
+      "level" : "G1"
+    },
+    "TATM79" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446496816596
+      },
+      "level" : "G1"
+    },
+    "TDDC30" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497102529
+      },
+      "level" : "G1"
+    },
+    "TDDC88" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446496901812
+      },
+      "level" : "A"
+    },
+    "TDDC90" : {
+      "lastEdit" : {
+        "author" : " Nils Eriksson ",
+        "date" : 1446452746499
+      },
+      "level" : "A"
+    },
+    "TDDD10" : {
+      "lastEdit" : {
+        "author" : " Nils Eriksson ",
+        "date" : 1446505376199
+      },
+      "level" : "A"
+    },
+    "TDDD11" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497071094
+      },
+      "level" : "G1"
+    },
+    "TDDD17" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446496901813
+      },
+      "level" : "A"
+    },
+    "TDDD23" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497102699
+      },
+      "level" : "A"
+    },
+    "TDDD27" : {
+      "lastEdit" : {
+        "author" : " Tobias Björch ",
+        "date" : 1446492250362
+      },
+      "level" : "A"
+    },
+    "TDDD38" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446496763868
+      },
+      "level" : "A"
+    },
+    "TDDD43" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446496789695
+      },
+      "level" : "A"
+    },
+    "TDDD48" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497455762
+      },
+      "level" : "A"
+    },
+    "TDDD55" : {
+      "lastEdit" : {
+        "author" : " Nils Eriksson ",
+        "date" : 1446453009941
+      },
+      "level" : "G1"
+    },
+    "TDDD56" : {
+      "lastEdit" : {
+        "author" : " Nils Eriksson ",
+        "date" : 1446452788868
+      },
+      "level" : "A"
+    },
+    "TDDD83" : {
+      "lastEdit" : {
+        "author" : " Kalle Olsson ",
+        "date" : 1446497449225
+      },
+      "level" : "G2"
+    },
+    "TDDD97" : {
+      "lastEdit" : {
+        "author" : " Kalle Olsson ",
+        "date" : 1446497459195
+      },
+      "level" : "G2"
+    },
+    "TDEI19" : {
+      "lastEdit" : {
+        "author" : " Kalle Olsson ",
+        "date" : 1446497489206
+      },
+      "level" : "A"
+    },
+    "TDEI35" : {
+      "lastEdit" : {
+        "author" : " Kalle Olsson ",
+        "date" : 1446497483960
+      },
+      "level" : "A"
+    },
+    "TEAE10" : {
+      "lastEdit" : {
+        "author" : " Tobias Björch ",
+        "date" : 1446492442094
+      },
+      "level" : "A"
+    },
+    "TEIE06" : {
+      "lastEdit" : {
+        "author" : " Tobias Björch ",
+        "date" : 1446492260298
+      },
+      "level" : "A"
+    },
+    "TEIE17" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446496822280
+      },
+      "level" : "G1"
+    },
+    "TEIE42" : {
+      "lastEdit" : {
+        "author" : " Kalle Olsson ",
+        "date" : 1446497491556
+      },
+      "level" : "A"
+    },
+    "TEIE72" : {
+      "lastEdit" : {
+        "author" : " Kalle Olsson ",
+        "date" : 1446497493690
+      },
+      "level" : "A"
+    },
+    "TEII16" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497074349
+      },
+      "level" : "G1"
+    },
+    "TEII18" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497103932
+      },
+      "level" : "G1"
+    },
+    "TEII41" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497087245
+      },
+      "level" : "G1"
+    },
+    "TEII42" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497102531
+      },
+      "level" : "G1"
+    },
+    "TEIM04" : {
+      "lastEdit" : {
+        "author" : " Tobias Björch ",
+        "date" : 1446492222509
+      },
+      "level" : "A"
+    },
+    "TEIM07" : {
+      "lastEdit" : {
+        "author" : " Kalle Olsson ",
+        "date" : 1446497264892
+      },
+      "level" : "A"
+    },
+    "TEIM09" : {
+      "lastEdit" : {
+        "author" : " Emil Gunnarsson ",
+        "date" : 1446486220097
+      },
+      "level" : "A"
+    },
+    "TEIO61" : {
+      "lastEdit" : {
+        "author" : " Kalle Olsson ",
+        "date" : 1446497240046
+      },
+      "level" : "G1"
+    },
+    "TETS32" : {
+      "lastEdit" : {
+        "author" : " Emil Gunnarsson ",
+        "date" : 1446487527696
+      },
+      "level" : "A"
+    },
+    "TETS37" : {
+      "lastEdit" : {
+        "author" : " Kalle Olsson ",
+        "date" : 1446497509414
+      },
+      "level" : "G2"
+    },
+    "TFYA14" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497114134
+      },
+      "level" : "G1"
+    },
+    "TMME27" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497087005
+      },
+      "level" : "G1"
+    },
+    "TPPE08" : {
+      "lastEdit" : {
+        "author" : " Kalle Olsson ",
+        "date" : 1446497250139
+      },
+      "level" : "G2"
+    },
+    "TPPE24" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497102535
+      },
+      "level" : "G1"
+    },
+    "TPPE98" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497087248
+      },
+      "level" : "G1"
+    },
+    "TSIN02" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446496788819
+      },
+      "level" : "A"
+    },
+    "TSIT02" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497105812
+      },
+      "level" : "G1"
+    },
+    "TSIT03" : {
+      "lastEdit" : {
+        "author" : " Nils Eriksson ",
+        "date" : 1446505373329
+      },
+      "level" : "A"
+    },
+    "TSKS08" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497070792
+      },
+      "level" : "G1"
+    },
+    "TSKS09" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497087246
+      },
+      "level" : "G1"
+    },
+    "TSKS11" : {
+      "lastEdit" : {
+        "author" : " Huy Tran ",
+        "date" : 1446497112795
+      },
+      "level" : "G2"
+    },
+    "TSRT19" : {
+      "lastEdit" : {
+        "author" : " Kalle Olsson ",
+        "date" : 1446497251975
+      },
+      "level" : "G2"
+    }
+  }
+}

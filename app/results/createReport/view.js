@@ -138,7 +138,7 @@ modal += "    <div class=\"modal-dialog\" role=\"document\">";
 modal += "    <div class=\"modal-content\">";
 modal += "    <div class=\"modal-header\">";
 modal += "    <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;<\/span><\/button>";
-modal += "<h4 class=\"modal-title\" id=\"myModalLabel\">Raport<\/h4>";
+modal += "<h4 class=\"modal-title\" id=\"myModalLabel\">Rapport<\/h4>";
 modal += "<\/div>";
 modal += "<div class=\"modal-body\">";
 modal += "<pre id='modal-text'>Välj vilka kurser du vill inkludera först</pre>";
