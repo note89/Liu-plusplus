@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   var suggestionsBtn = document.getElementById('suggestionsBtn');
   var studentportalBtn = document.getElementById('studentportalBtn');
+  var bookARoomBtn = document.getElementById('bookARoomBtn');
   suggestionsBtn.addEventListener('click', function() {
     chrome.tabs.getSelected(null, function(tab) {
       chrome.tabs.create({ url: "https://github.com/Niler851/studentportalen-extended/issues" });
@@ -12,6 +13,14 @@ document.addEventListener('DOMContentLoaded', function() {
       chrome.tabs.create({ url: "https://www3.student.liu.se/portal/studieresultat/resultat?show_oavslut=oavslut&show_splitt=splitt&post_button_select_filter=Spara" });
     });
   }, false);
+
+  bookARoomBtn.addEventListener('click', function() {
+    chrome.tabs.getSelected(null, function(tab) {
+      chrome.tabs.create({ url: "https://se.timeedit.net/web/liu/db1/wr_stud/ri1Q8.html" });
+    });
+  }, false);
+
+
 }, false);
 
 
