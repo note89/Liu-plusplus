@@ -25,6 +25,13 @@ på studieresultat sidan.
 3. aktivera developermode
 4. ladda in repot
 5. rock and roll
+6. 
+
+### Varför ser koden ut som den gör ? 
+Först skrevs koden som ett script till Tampermonkey, 
+Där kunde man bara ha en fil.
+Nu är planen att refactorera allt till es6 innan nån 
+seriöss vidareutveckling ska ske
 
 
 ### Injicera javascript låter farligt
