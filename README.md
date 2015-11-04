@@ -1,7 +1,7 @@
 # Liu++
 Lägg till saknad funktionalitet på Liu's olika webtjänster
 
-## Vad är studentportalen-extended ?
+## Vad är Liu++ ?
 En Chrome plugin som injecerar javascript kod 
 på olika liu sidor för att lägga till
 ytterligare funktionalitet
