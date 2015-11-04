@@ -6,7 +6,7 @@ En Chrome plugin som injecerar javascript kod
 på olika liu sidor för att lägga till
 ytterligare funktionalitet
 
-## Vad för funktionalitet har Liu++?
+## Vad för funktionalitet har Liu++ ?
 Popup
 * länkar till
   * Studentportalen
