@@ -237,19 +237,16 @@ function rowType(row) {
     }
 }
 
+
 /*
- when we click 'select-all-done' all done courses
- should be selected,
+    Function for all courses of a certain type on or of.
  */
 
-$("#select-all-done").click(function (event) {
-    event.stopPropagation();
-
+function toggleBoxesBasedOnClass(className) {
     if (this.checked) {
         $('.course-checkbox').each(function () {
-
             var row = $(this).closest("tr");
-            if (row.hasClass('is-finished')) {
+            if (row.hasClass(className)) {
                 this.checked = true;
                 row.addClass('selected');
             }
@@ -258,12 +255,14 @@ $("#select-all-done").click(function (event) {
     }
     else {
         $('.course-checkbox').each(function () {
-            this.checked = false;
-            $(this).closest("tr").removeClass('selected');
+            var row = $(this).closest("tr");
+            if (row.hasClass(className)) {
+                this.checked = false;
+                row.removeClass('selected');
+            }
         });
     }
-
-});
+}
 
 /*
  when we click 'select-all-todo' all todo courses
@@ -272,26 +271,24 @@ $("#select-all-done").click(function (event) {
 
 $("#select-all-todo").click(function (event) {
     event.stopPropagation();
-
-    if (this.checked) {
-        $('.course-checkbox').each(function () {
-
-            var row = $(this).closest("tr");
-            if (row.hasClass('is-not-finished')) {
-                this.checked = true;
-                row.addClass('selected');
-            }
-
-        });
-    }
-    else {
-        $('.course-checkbox').each(function () {
-            this.checked = false;
-            $(this).closest("tr").removeClass('selected');
-        });
-    }
-
+    toggleBoxesBasedOnClass.call(this, 'is-not-finished');
 });
+
+
+/*
+ when we click 'select-all-done' all done courses
+ should be selected,
+ */
+
+$("#select-all-done").click(function (event) {
+    event.stopPropagation();
+    toggleBoxesBasedOnClass.call(this, 'is-finished');
+});
+
+
+
+
+
 
 
 /*
