@@ -1,15 +1,18 @@
-# studentportalen-extended
-Lägg till saknad funktionalitet till studentportalen
+# Liu++
+Lägg till saknad funktionalitet på Liu's olika webtjänster
 
 ## Vad är studentportalen-extended ?
-En Chrome/Firefox plugin som injecerar javascript kod 
-på studentportalens studieresultat sida för att lägga till
+En Chrome plugin som injecerar javascript kod 
+på olika liu sidor för att lägga till
 ytterligare funktionalitet
 
-## Vad för funktionalitet har studentportalen-extended ?
-Studentportalen extended lägger i dagsläget till följande funktioner
-på studieresultat sidan. 
+## Vad för funktionalitet har Liu++?
+Popup
+* länkar till
+  * Studentportalen
+  * Salbokning
 
+Studentportalen
 * Viktat och oviktat snitt
 * Testa och ändra dina betyg och se hur snittet förändras
 * Wiki för vilken nivå kursen har
