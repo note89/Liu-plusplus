@@ -22,9 +22,11 @@ footer a:visited {color:pink; background-color:transparent; text-decoration:none
 footer a:hover   {color: #ff4d4c; background-color:transparent; text-decoration:underline}
 
 
-.header{
+.header-text{
     font-weight: bold;
-    text-shadow: 0px 1px 2px #AAA
+    /*text-shadow: 0px 1px 2px #AAA;*/
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size:40px;
 }
 
 .main-text{
