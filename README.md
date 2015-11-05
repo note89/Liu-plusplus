@@ -29,6 +29,13 @@ Studentportalen
 4. ladda in repot
 5. rock and roll
 
+## Pipeline
+1. es6 refactor
+2. gör så studiehanboken länkar också är wiki
+3. anmäl till tentor med ett tryck
+4. firefox port
+5. snabblänkar till viktiga sidor i popupen.
+
 ### Varför ser koden ut som den gör ? 
 Först skrevs koden som ett script till Tampermonkey, 
 Där kunde man bara ha en fil.
