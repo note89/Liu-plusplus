@@ -1,7 +1,7 @@
 # Liu++
-
+Lägg till saknad funktionalitet på Liu's olika webtjänster<br>
 [![Join the chat at https://gitter.im/Niler851/Liu-plusplus](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/Niler851/Liu-plusplus?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-Lägg till saknad funktionalitet på Liu's olika webtjänster
+
 
 ## Vad är Liu++ ?
 En Chrome plugin som injecerar javascript kod 
