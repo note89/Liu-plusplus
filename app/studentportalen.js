@@ -125,7 +125,7 @@ tooltipGrade += 'för och se hur värt det är och plussa';
 
 
 
-(function expandTableOfGrades() {
+(function expandTableOfCourses() {
     $("#grade-table").children().each(function () {
 
         var row = rowType(this);
@@ -138,7 +138,12 @@ tooltipGrade += 'för och se hur värt det är och plussa';
 
             }
             else {
-                $(this).prepend("<td><input type='checkbox' class='course-checkbox'></td>");
+                if(row.zeroHp){
+                    $(this).prepend("<td></td>");
+                }
+                if(!row.zeroHp){
+                    $(this).prepend("<td><input type='checkbox' class='course-checkbox'></td>");
+                }
                 $(this).children().eq(1).wrapInner("<a target='_blank' href='" + studiehandbokenBase + $(this).children().eq(1).text() + "'></a>");
 
 
@@ -156,7 +161,7 @@ tooltipGrade += 'för och se hur värt det är och plussa';
 
             $(this).children().eq(4).attr('nowrap', 'nowrap');
             $(this).children().eq(4).wrapInner("<span class='grade'></span>");
-            if (row.courseComponent || row.letterGrade) {
+            if (row.courseComponent || row.letterGrade || row.zeroHp) {
                 $(this).children().eq(4).append(" <span class='input-holder'></span>");
 
             }
@@ -207,6 +212,7 @@ function rowType(row) {
     var numberOfEntrys = $(row).children().size();
     var hasNumbericGrade = !isNaN(Number($(row).children().eq(3).text()));
     var hasBoldText = $(row).children().eq(0).find("b").length != 0;
+    var zeroHp = $(row).children().eq(2).text() === "0.0"
 
     var courseRow = false
     var numericGrade = false;
@@ -233,7 +239,8 @@ function rowType(row) {
         numericGrade: numericGrade,
         letterGrade: letterGrade,
         courseComponent: courseComponent,
-        notACourse: notACourse
+        notACourse: notACourse,
+        zeroHp:zeroHp
     }
 }
 
@@ -300,6 +307,7 @@ $('#grade-table').delegate('tr', 'click', function (e) {
     if ($(e.target).is('input:checkbox')) {
         this.checked = !this.checked;
         $(this).toggleClass('selected');
+        //Pressing the studiehandboken link should not check the box.
     } else if ($(e.target).parent().is("a")) {
         e.stopPropagation();
     }
