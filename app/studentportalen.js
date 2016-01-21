@@ -83,7 +83,7 @@ $("head").prepend('<meta charset="utf-8">');
 
 
 
-var studiehandbokenBase = "http://kdb-5.liu.se/liu/lith/studiehandboken/svkursplan.lasso?&k_budget_year=2015&k_kurskod="
+var studiehandbokenBase = "http://kdb-5.liu.se/liu/lith/studiehandboken/svkursplan.lasso?&k_budget_year=2016&k_kurskod="
 
 
 //// VIEW ////

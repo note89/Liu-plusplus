@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "Liu++",
   "description": "This extension brings new functionality to liu services",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "icons": { "16": "favicon16.png",
     "48": "favicon48.png",
     "128": "favicon128.png" },
