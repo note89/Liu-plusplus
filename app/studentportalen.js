@@ -1,5 +1,14 @@
 /* set up FireBASE */
+/**********************************************
+***********************************************
+************** IF YOU ARE TESTING *************
+********** set up your own firebase ***********
+*********************  OR *********************
+*********** uncomment the line below **********
+***********************************************
+**********************************************/
 var myFirebaseRef = new Firebase("https://studentportalen-data.firebaseio.com/");
+// var myFirebaseRef = new Firebase("https://test-liu.firebaseio.com/");
 
 var getAllCourseData = function () {
     var fireCourses = myFirebaseRef.child("courses");
@@ -72,10 +81,6 @@ var updateCourseLevel = function (course, level, author) {
 
 $("head").prepend('<meta charset="utf-8">');
 
-//console.debug('start: add CSS');
-//var bootcss = GM_getResourceText('bootcss');
-//GM_addStyle(bootcss);
-//console.debug('done: add CSS');
 
 
 var studiehandbokenBase = "http://kdb-5.liu.se/liu/lith/studiehandboken/svkursplan.lasso?&k_budget_year=2015&k_kurskod="
@@ -103,6 +108,7 @@ var levelBox = '\
 +>\
 <option class="G1" value="G1">G1</option>\
 <option class="G2" value="G2">G2</option>\
+<option class="B" value="B">B</option>\
 <option class="A" value="A">A</option>\
 <option class="empty" value="empty" selected></option>\
 </select>\
@@ -333,9 +339,9 @@ $("#calculate-btn").click(function (event) {
         return level.done + " + (" + level.todo + ") " + " = " + level.total
     }
     var prettyPrintLevelOthers = function (levelPoints) {
-        var done = levelPoints.G1.done + levelPoints.G2.done + levelPoints.empty.done;
-        var todo = levelPoints.G1.todo + levelPoints.G2.todo + levelPoints.empty.todo;
-        var total = levelPoints.G1.total + levelPoints.G2.total + levelPoints.empty.total;
+        var done = levelPoints.G1.done + levelPoints.G2.done + levelPoints.B.done + levelPoints.empty.done;
+        var todo = levelPoints.G1.todo + levelPoints.G2.todo + levelPoints.B.todo + levelPoints.empty.todo;
+        var total = levelPoints.G1.total + levelPoints.G2.total + levelPoints.B.total + levelPoints.empty.total;
         return done + " + (" + todo + ") " + " = " + total
     }
     $('#modal-text').text(fillModal());
@@ -575,15 +581,17 @@ var sumPointsInLevels = function () {
     }
 
     var levelA = findDataOnLevel("A");
+    var levelB = findDataOnLevel("B");
     var levelG1 = findDataOnLevel("G1");
     var levelG2 = findDataOnLevel("G2");
     var empty = findDataOnLevel("empty");
     var credits = findCredits();
-    var sum = sumPoints([levelA, levelG1, levelG2, empty, credits]);
+    var sum = sumPoints([levelA,levelB, levelG1, levelG2, empty, credits]);
 
     return {
         G1: levelG1,
         G2: levelG2,
+        B: levelB,
         A: levelA,
         credits: credits,
         empty: empty,
@@ -608,4 +616,3 @@ var selectAlternative = function (alt, select) {
     select.children().removeAttr('selected');
     select.find('.' + alt).attr('selected', true);
 }
-

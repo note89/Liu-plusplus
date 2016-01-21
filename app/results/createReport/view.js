@@ -65,9 +65,9 @@ var fillModal = function () {
     }
 
     var prettyPrintLevelOthers = function (levelPoints) {
-        var done = levelPoints.G1.done + levelPoints.G2.done + levelPoints.empty.done;
-        var todo = levelPoints.G1.todo + levelPoints.G2.todo + levelPoints.empty.todo;
-        var total = levelPoints.G1.total + levelPoints.G2.total + levelPoints.empty.total;
+        var done = levelPoints.G1.done + levelPoints.G2.done + levelPoints.B.done + levelPoints.empty.done;
+        var todo = levelPoints.G1.todo + levelPoints.G2.todo + levelPoints.B.todo + levelPoints.empty.todo;
+        var total = levelPoints.G1.total + levelPoints.G2.total + levelPoints.B.total + levelPoints.empty.total;
         return done + " + (" + todo + ") " + " = " + total + "\n"
     }
 
@@ -75,7 +75,7 @@ var fillModal = function () {
     var addGeneralInfo = function (reportData) {
         var generalString = createHeading("Poäng + (kommande)");
         generalString += "A: " + prettyPrintLevel(reportData.points.A);
-        generalString += "G1G2: " + prettyPrintLevelOthers(reportData.points);
+        generalString += "G1,G2,B: " + prettyPrintLevelOthers(reportData.points);
         generalString += "Credits: " + reportData.points.credits.abroad + " + (" + reportData.points.credits.tests + ") =" +
             " " + reportData.points.credits.total + "\n";
         generalString += "Totalt: " + reportData.points.sum.done + " + (" + reportData.points.sum.todo + ") = " + reportData.points.sum.total + "\n";
