@@ -59,8 +59,8 @@ $("#info-container").append("<div id='statistics-div' class='col-xs-4'></div>");
 $("#statistics-div").append('<h1>Statistik<span id="statistics-info" class="custom-icon">i</span></h1>');
 $("#statistics-div").append("<h3>Avancerade hp: <span id='sum-advanced-points' class='number-value'></span></h3>");
 $("#statistics-div").append("<h3 style='margin-top:5px;'>Grundläggande hp: <span class='number-value'id='sum-other-points'></span></h3>");
-$("#statistics-div").append("<h3 style='margin-top:5px;'>Utlands hp: <span class='number-value' id='sum-abroad-n-test-points'></span></h3>");
-$("#statistics-div").append("<h3 style='margin-top:5px;'>Totalt hp: <span class='number-value'" +
+$("#statistics-div").append("<h3 style='margin-top:5px;'>Utländska hp: <span class='number-value' id='sum-abroad-n-test-points'></span></h3>");
+$("#statistics-div").append("<h3 style='margin-top:5px;'>Totala hp: <span class='number-value'" +
     " id='sum-total-points'></span></h3>");
 
 
